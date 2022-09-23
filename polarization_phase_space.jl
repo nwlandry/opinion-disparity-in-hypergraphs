@@ -154,11 +154,11 @@ b3 = 4
 
 @time begin
     if in_parallel
-        psi1, nu1 = vary_epsilon2_epsilon3_distributed(beta2, beta3, epsilon2, epsilon3)
-        psi2, nu2 = vary_beta2_beta3_distributed(beta2, beta3, epsilon2, epsilon3)
+        psi1, nu1 = vary_epsilon2_epsilon3_distributed(b2, b3, epsilon2, epsilon3)
+        psi2, nu2 = vary_beta2_beta3_distributed(beta2, beta3, e2, e3)
     else
-        psi1, nu1 = vary_epsilon2_epsilon3(beta2, beta3, epsilon2, epsilon3)
-        psi2, nu2 = vary_beta2_beta3(beta2, beta3, epsilon2, epsilon3)
+        psi1, nu1 = vary_epsilon2_epsilon3(b2, b3, epsilon2, epsilon3)
+        psi2, nu2 = vary_beta2_beta3(beta2, beta3, e2, e3)
     end
 end
 
