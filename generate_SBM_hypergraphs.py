@@ -13,8 +13,8 @@ dataset_folder = "SBM"
 n = 10000
 mean_link_degree = 20
 mean_triangle_degree = 20
-epsilon2 = np.round(np.linspace(0, mean_link_degree, 101), decimals=3)
-epsilon3 = np.round(np.linspace(0.8 * mean_triangle_degree, mean_triangle_degree, 101), decimals=3)
+epsilon2 = np.round(np.linspace(0, mean_link_degree, 41), decimals=3)
+epsilon3 = np.round(np.linspace(0.8 * mean_triangle_degree, mean_triangle_degree, 41), decimals=3)
 
 datastring = json.dumps({"epsilon2": epsilon2.tolist(), "epsilon3": epsilon3.tolist()})
 

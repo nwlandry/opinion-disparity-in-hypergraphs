@@ -100,7 +100,7 @@ function vary_beta2_beta3(beta2, beta3, epsilon2, epsilon3)
     return psi, nu
 end
 
-function vary_epsilon2_epsilon3_distributed(epsilon2, epsilon3, beta2, beta3)
+function vary_epsilon2_epsilon3_distributed(beta2, beta3, epsilon2, epsilon3)
     m = length(epsilon2)
     n = length(epsilon3)
 
@@ -152,14 +152,12 @@ beta3 = LinRange(1.0, 7.0, n)
 b2 = 0.2
 b3 = 4
 
-@time begin
-    if in_parallel
-        psi1, nu1 = vary_epsilon2_epsilon3_distributed(b2, b3, epsilon2, epsilon3)
-        psi2, nu2 = vary_beta2_beta3_distributed(beta2, beta3, e2, e3)
-    else
-        psi1, nu1 = vary_epsilon2_epsilon3(b2, b3, epsilon2, epsilon3)
-        psi2, nu2 = vary_beta2_beta3(beta2, beta3, e2, e3)
-    end
+if in_parallel
+    psi1, nu1 = vary_epsilon2_epsilon3_distributed(b2, b3, epsilon2, epsilon3)
+    psi2, nu2 = vary_beta2_beta3_distributed(beta2, beta3, e2, e3)
+else
+    psi1, nu1 = vary_epsilon2_epsilon3(b2, b3, epsilon2, epsilon3)
+    psi2, nu2 = vary_beta2_beta3(beta2, beta3, e2, e3)
 end
 
 data1 = Dict("beta2"=>b2, "beta3"=>b3, "epsilon2"=>epsilon2, "epsilon3"=>epsilon3, "psi"=>psi1, "nu"=>nu1)
