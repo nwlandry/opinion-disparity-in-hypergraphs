@@ -30,12 +30,19 @@ function get_polarization(k, q, rho, epsilon2, epsilon3, beta2, beta3)
 
     function jacobian((x1, x2))
         J = zeros(2, 2)
-        J[1, 1] = -1 + 0.5*beta2*(1 - x1)*(1 + epsilon2) - 0.5*beta2*(x1 + x2 + epsilon2*(x1 - x2)) +
-                0.5*beta3*(1 - x1)*(x1 + x2 + epsilon3*(3*x1 - x2)) - 0.25*beta3*((x1 + x2)^2 + epsilon3*(3*x1^2 - 2*x1*x2 - x2^2))
-        J[1, 2] = 0.5*beta2*(1 - x1)*(1 - epsilon2) + 0.5*beta3*(1 - x1)*(x1 + x2 - epsilon3*(x1 + x2))
-        J[2, 1] = 0.5*beta2*(1 - x2)*(1 - epsilon2) + 0.5*beta3*(1 - x2)*(x2 + x1 - epsilon3*(x2 + x1))
-        J[2, 2] = -1 + 0.5*beta2*(1 - x2)*(1 + epsilon2) - 0.5*beta2*(x2 + x1 + epsilon2*(x2 - x1)) +
-                0.5*beta3*(1 - x2)*(x2 + x1 + epsilon3*(3*x2 - x1)) - 0.25*beta3*((x2 + x1)^2 + epsilon3*(3*x2^2 - 2*x2*x1 - x1^2))
+
+        J[1, 1] = -gamma + beta2*rho*(1 - x1)*(k + r2*epsilon2) - beta2*((1 - rho)*(k - epsilon2)*x2 + rho*(k + r2*epsilon2)*x1) +
+        beta3*(1 - x1)*(2*(1 - rho)^2*(q - epsilon3)*x2 + 2*rho^2*(q + r3*epsilon3)*x1) -
+        beta3*((1 - rho)^2*(q - epsilon3)*(2*x1*x2 + x2^2) + rho^2*(q + r3*epsilon3)*x1^2)
+
+        J[1, 2] = (1 - rho)*(1 - x1)*(beta2*(k - epsilon2) + 2*beta3*(1 - rho)*(q - epsilon3)*(x1 + x2))
+
+        J[2, 1] = rho*(1 - x2)*(beta2*(k - epsilon2) + 2*beta3*rho*(q - epsilon3)*(x1 + x2))
+
+        J[2, 2] = -gamma + beta2*(1 - rho)*(1 - x2)*(k + r2*epsilon2) - beta2*(rho*(k - epsilon2)*x1 + (1 - rho)*(k + r2*epsilon2)*x2) +
+        beta3*(1 - x2)*(2*rho^2*(q - epsilon3)*x1 + 2*(1 - rho)^2*(q + r3*epsilon3)*x2) -
+        beta3*(rho^2*(q - epsilon3)*(2*x2*x1 + x1^2) + (1 - rho)^2*(q + r3*epsilon3)*x2^2)
+        
         return J
     end
 
@@ -95,7 +102,7 @@ function vary_beta2_beta3(beta2, beta3, epsilon2, epsilon3)
         b2 = beta2[i]
         for j in eachindex(beta3)
             b3 = beta3[j]
-            psi[i, j], nu[i, j] = get_polarization(epsilon2, epsilon3, b2, b3)
+            psi[i, j], nu[i, j] = get_polarization(k, q, rho, epsilon2, epsilon3, b2, b3)
 
             println((i, j, psi[i, j]))
             flush(stdout)
@@ -113,7 +120,7 @@ function vary_epsilon2_epsilon3_distributed(beta2, beta3, epsilon2, epsilon3)
     
     for i in eachindex(epsilon2)
         e2 = epsilon2[i]
-        results = pmap(e3 -> get_polarization(e2, e3, beta2, beta3), epsilon3)
+        results = pmap(e3 -> get_polarization(k, q, rho, e2, e3, beta2, beta3), epsilon3)
         psi[i, :], nu[i, :] = unzip(results)
         println(i)
         flush(stdout)
@@ -131,7 +138,7 @@ function vary_beta2_beta3_distributed(beta2, beta3, epsilon2, epsilon3)
     
     for i in eachindex(beta2)
         b2 = beta2[i]
-        results = pmap(b3 -> get_polarization(epsilon2, epsilon3, b2, b3), beta3)
+        results = pmap(b3 -> get_polarization(k, q, rho, epsilon2, epsilon3, b2, b3), beta3)
         psi[i, :], nu[i, :] = unzip(results)
         println(i)
         flush(stdout)
