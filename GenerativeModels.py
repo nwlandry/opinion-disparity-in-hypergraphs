@@ -59,7 +59,7 @@ def uniform_planted_partition_hypergraph(n, m, k, epsilon):
     sizes = [int(n / 2), n - int(n / 2)]
 
     p = k / (m * n ** (m - 1))
-    delta = epsilon / (m * n ** (m - 1))
+    delta = epsilon * k / (m * n ** (m - 1))
     p_in = p + (2 ** (m - 1) - 1) * delta
     p_out = p - delta
 
