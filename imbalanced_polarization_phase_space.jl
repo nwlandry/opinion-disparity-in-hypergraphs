@@ -25,9 +25,11 @@ function get_polarization(k, q, rho, epsilon2, epsilon3, beta2, beta3)
 
     function f((x1, x2))
         dxdt1 = -x1 + beta2*k*(1 - x1)*(rho*(1 + r2*epsilon2)*x1 + (1 - rho)*(1 - epsilon2)*x2) +
-            beta3*q*(1 - x1)*(rho^2*(1 + r3*epsilon3)*x1^2 + (1 - rho)*(1 - epsilon3)*(2*x1*x2 + x2^2))
-        dxdt2 = -x2 + beta2*k*(1 - x2)*((1 - rho)*(k + r2*epsilon2)* + rho*(1 - epsilon2)*x1) +
-            beta3*q*(1 - x2)*((1 - rho)^2*(1 + r3*epsilon3)*x2^2 + rho^2*(1 - epsilon3)*(2*x2*x1 + x1^2))
+            beta3*q*(1 - x1)*(rho^2*(1 + r3*epsilon3)*x1^2 + 2*rho*(1 - rho)*(1 - epsilon3)*x1*x2 +
+            (1 - rho)^2*(1 - epsilon3)*x2^2)
+        dxdt2 = -x2 + beta2*k*(1 - x2)*((1 - rho)*(1 + r2*epsilon2)*x2 + rho*(1 - epsilon2)*x1) +
+            beta3*q*(1 - x2)*((1 - rho)^2*(1 + r3*epsilon3)*x2^2 + 2*(1 - rho)*rho*(1 - epsilon3)*x2*x1 +
+            rho^2*(1 - epsilon3)*x1^2)
         return SVector(dxdt1, dxdt2)
     end
 
@@ -36,17 +38,25 @@ function get_polarization(k, q, rho, epsilon2, epsilon3, beta2, beta3)
 
         J[1, 1] = -1 + beta2*k*rho*(1 - x1)*(1 + r2*epsilon2) -
         beta2*k*((1 - rho)*(1 - epsilon2)*x2 + rho*(1 + r2*epsilon2)*x1) +
-        beta3*q*(1 - x1)*(2*(1 - rho)^2*(1 - epsilon3)*x2 + 2*rho^2*(1 + r3*epsilon3)*x1) -
-        beta3*q*((1 - rho)^2*(1 - epsilon3)*(2*x1*x2 + x2^2) + rho^2*(1 + r3*epsilon3)*x1^2)
+        2*beta3*q*(1 - x1)*(rho^2*(1 + r3*epsilon3)*x1 +
+        (1 - rho)*rho*(1 - epsilon3)*x2) -
+        beta3*q*(rho^2*(1 + r3*epsilon3)*x1^2 +
+        2*(1 - rho)*rho*(1 - epsilon3)*x1*x2 + (1 - rho)^2*(1 - epsilon3)*x2^2)
 
-        J[1, 2] = (1 - rho)*(1 - x1)*(beta2*k*(1 - epsilon2) + 2*beta3*q*(1 - rho)*(1 - epsilon3)*(x1 + x2))
+        J[1, 2] = beta2*k*(1 - rho)*(1 - epsilon2)*(1 - x1) +
+        2*beta3*q*(1 - rho)*rho*(1 - epsilon3)*(1 - x1)*x1 +
+        2*beta3*q*(1 - rho)^2*(1 - epsilon3)*(1 - x1)*x2
 
-        J[2, 1] = rho*(1 - x2)*(beta2*k*(1 - epsilon2) + 2*beta3*rho*q*(1 - epsilon3)*(x1 + x2))
+        J[2, 1] = beta2*k*rho*(1 - epsilon2)*(1 - x2) +
+        2*beta3*q*rho*(1 - rho)*(1 - epsilon3)*(1 - x2)*x2 +
+        2*beta3*q*rho^2*(1 - epsilon3)*(1 - x2)*x1
 
         J[2, 2] = -1 + beta2*k*(1 - rho)*(1 - x2)*(1 + r2*epsilon2) -
         beta2*k*(rho*(1 - epsilon2)*x1 + (1 - rho)*(1 + r2*epsilon2)*x2) +
-        beta3*q*(1 - x2)*(2*rho^2*(1 - epsilon3)*x1 + 2*(1 - rho)^2*(1 + r3*epsilon3)*x2) -
-        beta3*q*(rho^2*(1 - epsilon3)*(2*x2*x1 + x1^2) + (1 - rho)^2*(1 + r3*epsilon3)*x2^2)
+        2*beta3*q*(1 - x2)*((1 - rho)^2*(1 + r3*epsilon3)*x2 +
+        rho*(1 - rho)*(1 - epsilon3)*x1) -
+        beta3*q*((1 - rho)^2*(1 + r3*epsilon3)*x2^2 +
+        2*rho*(1 - rho)*(1 - epsilon3)*x2*x1 + rho^2*(1 - epsilon3)*x1^2)
         
         return J
     end
@@ -117,12 +127,12 @@ function vary_rho_epsilon2_distributed(k, q, rho, beta2, beta3, epsilon2, epsilo
 end
 
 
-m = 100
-n = 100
+m = 101
+n = 101
 
 k = 20
 q = 20
-rho = LinRange(0, 1.0, m)
+rho = LinRange(0.48, 0.52, m)
 epsilon2 = LinRange(0, 1.0, m)
 epsilon3 = 0.95
 beta2 = 0.2/k
