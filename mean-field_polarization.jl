@@ -146,8 +146,8 @@ epsilon3 = LinRange(0.8, 1.0, n)
 e2 = 0.5
 e3 = 0.95
 
-beta2 = LinRange(0, 1.0, m)
-beta3 = LinRange(1.0, 7.0, n)
+beta2 = LinRange(0, 0.5, m)
+beta3 = LinRange(3.0, 6.0, n)
 
 b2 = 0.2
 b3 = 4
@@ -163,10 +163,10 @@ end
 data1 = Dict("beta2"=>b2, "beta3"=>b3, "epsilon2"=>epsilon2, "epsilon3"=>epsilon3, "psi"=>psi1, "nu"=>nu1)
 data2 = Dict("beta2"=>beta2, "beta3"=>beta3, "epsilon2"=>e2, "epsilon3"=>e3, "psi"=>psi2, "nu"=>nu2)
 
-open("Data/stability/theoretical_epsilon2_epsilon3_polarization.json","w") do f
+open("Data/stability/mean-field_epsilon2_epsilon3_polarization.json","w") do f
   JSON.print(f, data1)
 end
 
-open("Data/stability/theoretical_beta2_beta3_polarization.json","w") do f
+open("Data/stability/mean-field_beta2_beta3_polarization.json","w") do f
     JSON.print(f, data2)
 end

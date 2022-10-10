@@ -28,8 +28,8 @@ with open(
 ) as file:
     data = json.loads(file.read())
 
-e2 = 19
-e3 = 10
+e2 = 0.5
+e3 = 0.95
 
 epsilon2 = data["epsilon2"]
 epsilon3 = data["epsilon3"]
@@ -54,10 +54,10 @@ beta2c = gamma / mean_link_degree
 beta3c = gamma / mean_triangle_degree
 
 beta2min = 0.0 * beta2c
-beta2max = 1 * beta2c
+beta2max = 0.5 * beta2c
 
-beta3min = 2 * beta3c
-beta3max = 10 * beta3c
+beta3min = 3 * beta3c
+beta3max = 6 * beta3c
 
 beta2 = np.linspace(beta2min, beta2max, n)
 beta3 = np.linspace(beta3min, beta3max, m)

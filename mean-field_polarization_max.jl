@@ -122,6 +122,6 @@ end
 
 data = Dict("epsilon2"=>epsilon2, "epsilon3"=>epsilon3, "psi"=>psi, "nu"=>nu)
 
-open("Data/stability/theoretical_polarization.json","w") do f
+open("Data/stability/mean-field_polarization.json","w") do f
   JSON.print(f, data)
 end
