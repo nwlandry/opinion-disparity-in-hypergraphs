@@ -86,11 +86,11 @@ polarization = HypergraphContagion.get_polarization_in_parallel(
 polarization = np.reshape(polarization, [n, m], order="C")
 
 data["gamma"] = gamma
-data["beta2"] = beta2
-data["beta3"] = beta3
+data["beta2"] = beta2.tolist()
+data["beta3"] = beta3.tolist()
 data["epsilon2"] = epsilon2
 data["epsilon3"] = epsilon3
-data["polarization"] = polarization
+data["polarization"] = polarization.tolist()
 
 datastring = json.dumps(data)
 

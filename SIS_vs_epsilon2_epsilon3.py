@@ -75,9 +75,9 @@ polarization = np.reshape(polarization, [n, m], order="C")
 data["gamma"] = gamma
 data["beta2"] = beta2
 data["beta3"] = beta3
-data["epsilon2"] = epsilon2
-data["epsilon3"] = epsilon3
-data["polarization"] = polarization
+data["epsilon2"] = epsilon2.tolist()
+data["epsilon3"] = epsilon3.tolist()
+data["polarization"] = polarization.tolist()
 
 datastring = json.dumps(data)
 
