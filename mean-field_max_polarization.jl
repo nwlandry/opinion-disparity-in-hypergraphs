@@ -106,8 +106,8 @@ function get_data_distributed(epsilon2, epsilon3)
 end
 
 
-m = 100
-n = 100
+m = 101
+n = 101
 
 epsilon2 = LinRange(0, 1.0, m)
 epsilon3 = LinRange(0.8, 1.0, n)
@@ -122,6 +122,6 @@ end
 
 data = Dict("epsilon2"=>epsilon2, "epsilon3"=>epsilon3, "psi"=>psi, "nu"=>nu)
 
-open("Data/stability/mean-field_polarization.json","w") do f
+open("Data/stability/mean-field_max_polarization.json","w") do f
   JSON.print(f, data)
 end

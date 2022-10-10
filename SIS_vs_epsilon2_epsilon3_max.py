@@ -17,8 +17,7 @@ tmax = 100
 fraction_to_average = 0.1
 is_verbose = True
 num_processes = len(os.sched_getaffinity(0))
-n = 10
-m = 10
+
 num_sims = 1
 
 output_filename = "polarization.json"
@@ -29,6 +28,8 @@ with open(
     data = json.loads(file.read())
 epsilon2 = data["epsilon2"]
 epsilon3 = data["epsilon3"]
+n = len(epsilon2)
+m = len(epsilon3)
 
 data = dict()
 

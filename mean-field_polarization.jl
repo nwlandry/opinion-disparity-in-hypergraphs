@@ -137,8 +137,8 @@ function vary_beta2_beta3_distributed(beta2, beta3, epsilon2, epsilon3)
 end
 
 
-m = 100
-n = 100
+m = 101
+n = 101
 
 epsilon2 = LinRange(0, 1.0, m)
 epsilon3 = LinRange(0.8, 1.0, n)

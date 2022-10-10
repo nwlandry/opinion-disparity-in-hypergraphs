@@ -17,8 +17,6 @@ gamma = 1
 tmax = 100
 fraction_to_average = 0.1
 
-n = 100
-m = 100
 num_sims = 1
 
 beta2tilde = 0.2
@@ -32,6 +30,8 @@ with open(
     data = json.loads(file.read())
 epsilon2 = data["epsilon2"]
 epsilon3 = data["epsilon3"]
+n = len(epsilon2)
+m = len(epsilon3)
 
 data = dict()
 arglist = list()

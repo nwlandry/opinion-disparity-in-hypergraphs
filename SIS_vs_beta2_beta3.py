@@ -17,17 +17,17 @@ tmax = 100
 fraction_to_average = 0.1
 is_verbose = True
 num_processes = len(os.sched_getaffinity(0))
-n = 100
-m = 100
 num_sims = 1
 
 output_filename = "empirical_beta2_beta3_polarization.json"
 
 with open(
-    os.path.join(main_folder, data_folder, dataset_folder, "epsilon_values.json")
+    os.path.join(main_folder, data_folder, dataset_folder, "hypergraphs", "epsilon_values.json")
 ) as file:
     data = json.loads(file.read())
 
+n = 41
+m = 41
 e2 = 0.5
 e3 = 0.95
 
