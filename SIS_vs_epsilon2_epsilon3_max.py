@@ -7,10 +7,6 @@ import xgi
 
 import HypergraphContagion
 
-main_folder = os.getcwd()
-data_folder = "Data"
-dataset_folder = "SBM"
-
 # Epidemic parameters
 gamma = 1
 tmax = 100
@@ -22,9 +18,7 @@ num_sims = 1
 
 output_filename = "polarization.json"
 
-with open(
-    os.path.join(main_folder, data_folder, dataset_folder, "epsilon_values.json")
-) as file:
+with open("Data/SBM/hypergraphs/epsilon_values.json") as file:
     data = json.loads(file.read())
 epsilon2 = data["epsilon2"]
 epsilon3 = data["epsilon3"]
@@ -35,9 +29,7 @@ data = dict()
 
 for e2 in epsilon2:
     for e3 in epsilon3:
-        fname = os.path.join(
-            main_folder, data_folder, dataset_folder, "hypergraphs", f"{e2}-{e3}.json"
-        )
+        fname = f"Data/SBM/hypergraphs/{e2}-{e3}.json"
         H = xgi.read_hypergraph_json(fname)
         community1 = set(list(H.nodes)[: int(H.num_nodes / 2)])
         community2 = set(list(H.nodes)[int(H.num_nodes / 2) :])
@@ -74,20 +66,18 @@ for e2 in epsilon2:
                     )
                 )
         print(f"epsilon2={e2}, epsilon3={e3} started", flush=True)
-        polarization = HypergraphContagion.get_polarization_in_parallel(
+        psi = HypergraphContagion.get_polarization_in_parallel(
             arglist, num_processes
         )
-        polarization = np.reshape(polarization, [n, m], order="C")
+        psi = np.reshape(psi, [n, m], order="C")
         print(f"epsilon2={e2}, epsilon3={e3} completed", flush=True)
 
         data[f"gamma-{e2}-{e3}"] = gamma
         data[f"beta2-{e2}-{e3}"] = beta2
         data[f"beta3-{e2}-{e3}"] = beta3
-        data[f"polarization-{e2}-{e3}"] = polarization
+        data[f"psi-{e2}-{e3}"] = psi
 
 datastring = json.dumps(data)
 
-with open(
-    os.path.join(main_folder, data_folder, "stability", output_filename)
-) as output_file:
+with open(f"Data/stability/{output_filename}", "w") as output_file:
     output_file.write(datastring)

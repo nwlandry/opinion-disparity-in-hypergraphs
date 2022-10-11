@@ -7,10 +7,6 @@ import xgi
 
 import HypergraphContagion
 
-main_folder = os.getcwd()
-data_folder = "Data"
-dataset_folder = "SBM"
-
 # Epidemic parameters
 gamma = 1
 tmax = 100
@@ -21,9 +17,7 @@ num_sims = 1
 
 output_filename = "empirical_beta2_beta3_polarization.json"
 
-with open(
-    os.path.join(main_folder, data_folder, dataset_folder, "hypergraphs", "epsilon_values.json")
-) as file:
+with open("Data/SBM/hypergraphs/epsilon_values.json") as file:
     data = json.loads(file.read())
 
 n = 41
@@ -41,9 +35,7 @@ if e3 not in epsilon3:
 
 data = dict()
 
-fname = os.path.join(
-    main_folder, data_folder, dataset_folder, "hypergraphs", f"{e2}-{e3}.json"
-)
+fname = f"Data/SBM/hypergraphs/{e2}-{e3}.json"
 H = xgi.read_hypergraph_json(fname)
 community1 = set(list(H.nodes)[: int(H.num_nodes / 2)])
 community2 = set(list(H.nodes)[int(H.num_nodes / 2) :])
@@ -80,21 +72,19 @@ for b2 in beta2:
             )
         )
 
-polarization = HypergraphContagion.get_polarization_in_parallel(
+psi = HypergraphContagion.get_polarization_in_parallel(
     arglist, num_processes
 )
-polarization = np.reshape(polarization, [n, m], order="C")
+psi = np.reshape(psi, [n, m], order="C")
 
 data["gamma"] = gamma
 data["beta2"] = beta2.tolist()
 data["beta3"] = beta3.tolist()
-data["epsilon2"] = epsilon2
-data["epsilon3"] = epsilon3
-data["polarization"] = polarization.tolist()
+data["epsilon2"] = e2
+data["epsilon3"] = e3
+data["psi"] = psi.tolist()
 
 datastring = json.dumps(data)
 
-with open(
-    os.path.join(main_folder, data_folder, "stability", output_filename)
-) as output_file:
+with open(f"Data/stability/{output_filename}", "w") as output_file:
     output_file.write(datastring)

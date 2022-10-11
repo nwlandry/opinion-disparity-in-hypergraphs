@@ -5,10 +5,6 @@ import xgi
 
 import HypergraphContagion
 
-main_folder = os.getcwd()
-data_folder = "Data"
-dataset_folder = "SBM"
-
 is_verbose = True
 num_processes = len(os.sched_getaffinity(0))
 
@@ -24,9 +20,7 @@ beta3tilde = 4
 
 output_filename = "empirical_epsilon2_epsilon3_polarization.json"
 
-with open(
-    os.path.join(main_folder, data_folder, dataset_folder, "hypergraphs", "epsilon_values.json")
-) as file:
+with open("Data/SBM/hypergraphs/epsilon_values.json") as file:
     data = json.loads(file.read())
 epsilon2 = data["epsilon2"]
 epsilon3 = data["epsilon3"]
@@ -38,9 +32,7 @@ arglist = list()
 
 for e2 in epsilon2:
     for e3 in epsilon3:
-        fname = os.path.join(
-            main_folder, data_folder, dataset_folder, "hypergraphs", f"{e2}-{e3}.json"
-        )
+        fname = f"Data/SBM/hypergraphs/{e2}-{e3}.json"
         H = xgi.read_hypergraph_json(fname)
         community1 = set(list(H.nodes)[: int(H.num_nodes / 2)])
         community2 = set(list(H.nodes)[int(H.num_nodes / 2) :])
@@ -67,21 +59,20 @@ for e2 in epsilon2:
                 is_verbose,
             )
         )
-polarization = HypergraphContagion.get_polarization_in_parallel(
+print("Simulations started!", flush=True)
+psi = HypergraphContagion.get_polarization_in_parallel(
     arglist, num_processes
 )
-polarization = np.reshape(polarization, [n, m], order="C")
+psi = np.reshape(psi, [n, m], order="C")
 
 data["gamma"] = gamma
 data["beta2"] = beta2
 data["beta3"] = beta3
 data["epsilon2"] = epsilon2.tolist()
 data["epsilon3"] = epsilon3.tolist()
-data["polarization"] = polarization.tolist()
+data["psi"] = psi.tolist()
 
 datastring = json.dumps(data)
 
-with open(
-    os.path.join(main_folder, data_folder, dataset_folder, output_filename)
-) as output_file:
+with open(f"Data/stability/{output_filename}", "w") as output_file:
     output_file.write(datastring)
