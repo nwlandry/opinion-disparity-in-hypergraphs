@@ -357,7 +357,9 @@ def Gillespie_SIS_two_communities(
 
     for node in initial_infecteds:
         infecteds.update(node, weight_increment=nodeweight(node))
-        for edge_id in memberships[node]:  # must have this in a separate loop after assigning status of node
+        for edge_id in memberships[
+            node
+        ]:  # must have this in a separate loop after assigning status of node
             # handle weighted vs. unweighted?
             edge = members[edge_id]
             for nbr in edge:  # there may be self-loops so account for this later

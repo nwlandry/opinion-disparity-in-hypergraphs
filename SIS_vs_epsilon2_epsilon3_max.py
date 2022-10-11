@@ -66,9 +66,7 @@ for e2 in epsilon2:
                     )
                 )
         print(f"epsilon2={e2}, epsilon3={e3} started", flush=True)
-        psi = HypergraphContagion.get_polarization_in_parallel(
-            arglist, num_processes
-        )
+        psi = HypergraphContagion.get_polarization_in_parallel(arglist, num_processes)
         psi = np.reshape(psi, [n, m], order="C")
         print(f"epsilon2={e2}, epsilon3={e3} completed", flush=True)
 

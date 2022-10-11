@@ -16,7 +16,9 @@ with open(input_filename) as file:
         e2 = epsilon2[ii]
         for jj in range(len(epsilon3)):
             e3 = epsilon3[jj]
-            polarization = np.array(data["polarization-" + str(e2) + "-" + str(e3)], dtype=float)
+            polarization = np.array(
+                data["polarization-" + str(e2) + "-" + str(e3)], dtype=float
+            )
             psi[ii, jj] = np.max(polarization)
 
 data = dict()

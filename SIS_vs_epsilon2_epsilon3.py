@@ -60,16 +60,14 @@ for e2 in epsilon2:
             )
         )
 print("Simulations started!", flush=True)
-psi = HypergraphContagion.get_polarization_in_parallel(
-    arglist, num_processes
-)
+psi = HypergraphContagion.get_polarization_in_parallel(arglist, num_processes)
 psi = np.reshape(psi, [n, m], order="C")
 
 data["gamma"] = gamma
-data["beta2"] = beta2
-data["beta3"] = beta3
-data["epsilon2"] = epsilon2.tolist()
-data["epsilon3"] = epsilon3.tolist()
+data["beta2"] = beta2tilde
+data["beta3"] = beta3tilde
+data["epsilon2"] = epsilon2
+data["epsilon3"] = epsilon3
 data["psi"] = psi.tolist()
 
 datastring = json.dumps(data)

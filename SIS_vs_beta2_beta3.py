@@ -25,12 +25,12 @@ m = 41
 e2 = 0.5
 e3 = 0.95
 
-epsilon2 = data["epsilon2"]
-epsilon3 = data["epsilon3"]
+beta2tilde = np.round(np.linspace(0, 0.5, n), decimals=4)
+beta3tilde = np.round(np.linspace(3, 6, m), decimals=4)
 
-if e2 not in epsilon2:
+if e2 not in data["epsilon2"]:
     raise Exception(f"{e2} not in epsilon2.")
-if e3 not in epsilon3:
+if e3 not in data["epsilon3"]:
     raise Exception(f"{e3} not in epsilon3.")
 
 data = dict()
@@ -45,14 +45,8 @@ mean_triangle_degree = H.nodes.degree(order=2).mean()
 beta2c = gamma / mean_link_degree
 beta3c = gamma / mean_triangle_degree
 
-beta2min = 0.0 * beta2c
-beta2max = 0.5 * beta2c
-
-beta3min = 3 * beta3c
-beta3max = 6 * beta3c
-
-beta2 = np.linspace(beta2min, beta2max, n)
-beta3 = np.linspace(beta3min, beta3max, m)
+beta2 = beta2tilde * beta2c
+beta3 = beta3tilde * beta3c
 
 arglist = list()
 for b2 in beta2:
@@ -72,14 +66,12 @@ for b2 in beta2:
             )
         )
 
-psi = HypergraphContagion.get_polarization_in_parallel(
-    arglist, num_processes
-)
+psi = HypergraphContagion.get_polarization_in_parallel(arglist, num_processes)
 psi = np.reshape(psi, [n, m], order="C")
 
 data["gamma"] = gamma
-data["beta2"] = beta2.tolist()
-data["beta3"] = beta3.tolist()
+data["beta2"] = beta2tilde.tolist()
+data["beta3"] = beta3tilde.tolist()
 data["epsilon2"] = e2
 data["epsilon3"] = e3
 data["psi"] = psi.tolist()
