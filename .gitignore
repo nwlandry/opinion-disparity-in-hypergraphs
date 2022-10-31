@@ -146,3 +146,4 @@ test.*
 *.bak
 *.dat
 *.dir
+*.DS_Store
