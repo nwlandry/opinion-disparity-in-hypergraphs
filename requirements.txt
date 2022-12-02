@@ -1,2 +1,5 @@
-xgi
+xgi>=0.5.0
 sklearn
+matplotlib
+numpy
+scipy
