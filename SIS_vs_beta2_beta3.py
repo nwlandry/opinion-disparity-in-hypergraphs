@@ -1,11 +1,10 @@
 import json
 import os
-from fileinput import filename
 
 import numpy as np
 import xgi
 
-import HypergraphContagion
+from src import HypergraphContagion
 
 # Epidemic parameters
 gamma = 1

@@ -1,0 +1,12 @@
+name = "polarizability"
+uuid = "a4e51b0e-c5e4-4c2d-8f7f-653386a39ef7"
+authors = ["nwlandry "]
+version = "0.1.0"
+
+[deps]
+Distributed = "8ba89e20-285c-5b6f-9357-94700520ee1b"
+IntervalArithmetic = "d1acc4aa-44c8-5952-acd4-ba5d80a2a253"
+IntervalRootFinding = "d2bf35a9-74e0-55ec-b149-d360ff49b807"
+JSON = "682c06a0-de6a-54ab-a142-c8b1cf79cde6"
+LinearAlgebra = "37e2e46d-f89d-539d-b4ee-838fcccc9c8e"
+StaticArrays = "90137ffa-7385-5640-81b9-e52037218182"

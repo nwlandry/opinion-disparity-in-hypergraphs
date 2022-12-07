@@ -3,7 +3,7 @@ import os
 import numpy as np
 import xgi
 
-import HypergraphContagion
+from src import HypergraphContagion
 
 is_verbose = True
 num_processes = len(os.sched_getaffinity(0))

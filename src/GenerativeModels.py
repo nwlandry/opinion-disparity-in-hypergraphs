@@ -1,6 +1,5 @@
 import itertools
 import operator
-import random
 from functools import reduce
 
 import numpy as np
