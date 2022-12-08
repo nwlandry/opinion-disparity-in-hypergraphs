@@ -1,10 +1,9 @@
 import json
-import os
 
 import numpy as np
 import xgi
 
-from GenerativeModels import *
+from src.GenerativeModels import *
 
 n = 10000
 mean_link_degree = 20
