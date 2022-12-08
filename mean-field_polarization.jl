@@ -13,52 +13,9 @@ end
 
 @everywhere begin
 unzip(a) = map(x->getfield.(a, x), fieldnames(eltype(a)))
-
-function get_polarization(epsilon2, epsilon3, beta2, beta3)
-    psi_max = 0
-    nu_max = Inf
-
-    function f((x1, x2))
-        dxdt1 = -x1 + 0.5*beta2*(1 - x1)*(x1 + x2 + epsilon2*(x1 - x2)) + 0.25*beta3*(1 - x1)*((x1 + x2)^2 + epsilon3*(3*x1^2 - 2*x1*x2 - x2^2))
-        dxdt2 = -x2 + 0.5*beta2*(1 - x2)*(x2 + x1 + epsilon2*(x2 - x1)) + 0.25*beta3*(1 - x2)*((x2 + x1)^2 + epsilon3*(3*x2^2 - 2*x2*x1 - x1^2))
-        return SVector(dxdt1, dxdt2)
-    end
-
-    function jacobian((x1, x2))
-        J = zeros(2, 2)
-        J[1, 1] = -1 + 0.5*beta2*(1 - x1)*(1 + epsilon2) - 0.5*beta2*(x1 + x2 + epsilon2*(x1 - x2)) +
-                0.5*beta3*(1 - x1)*(x1 + x2 + epsilon3*(3*x1 - x2)) - 0.25*beta3*((x1 + x2)^2 + epsilon3*(3*x1^2 - 2*x1*x2 - x2^2))
-        J[1, 2] = 0.5*beta2*(1 - x1)*(1 - epsilon2) + 0.5*beta3*(1 - x1)*(x1 + x2 - epsilon3*(x1 + x2))
-        J[2, 1] = 0.5*beta2*(1 - x2)*(1 - epsilon2) + 0.5*beta3*(1 - x2)*(x2 + x1 - epsilon3*(x2 + x1))
-        J[2, 2] = -1 + 0.5*beta2*(1 - x2)*(1 + epsilon2) - 0.5*beta2*(x2 + x1 + epsilon2*(x2 - x1)) +
-                0.5*beta3*(1 - x2)*(x2 + x1 + epsilon3*(3*x2 - x1)) - 0.25*beta3*((x2 + x1)^2 + epsilon3*(3*x2^2 - 2*x2*x1 - x1^2))
-        return J
-    end
-
-    function spectral_abscissa(J)
-        return maximum(real(eigvals(J)))
-    end
-    
-    result = roots(f, IntervalBox(0.0..0.5, 0.5..1.0))
-    for rt in result
-        x = mid(rt.interval)
-        psi = abs(x[1] - x[2])
-
-
-        if psi > 0.01 # filter out symmetric roots to save time
-            nu = spectral_abscissa(jacobian(x))
-            
-            if (psi > psi_max && nu < 0)
-                psi_max = psi
-                nu_max = nu
-            end
-        end
-    end
-
-    return psi_max, nu_max
+include("src/polarization.jl")
 end
 
-end
 
 function vary_epsilon2_epsilon3(beta2, beta3, epsilon2, epsilon3)
     m = length(epsilon2)

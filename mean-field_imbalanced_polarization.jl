@@ -1,7 +1,5 @@
-# Gets the stability of the rescaled homogeneous equations
+# Gets the stability of the rescaled imbalanced homogeneous equations
 using Distributed, JSON
-
-in_parallel = true
 
 if in_parallel
     Distributed.addprocs(Sys.CPU_THREADS; exeflags="--project")
@@ -10,14 +8,10 @@ else
     using IntervalArithmetic, IntervalRootFinding, StaticArrays, LinearAlgebra
 end
 
-
 @everywhere begin
-
 unzip(a) = map(x->getfield.(a, x), fieldnames(eltype(a)))
 include("src/polarization.jl")
-
 end
-
 
 
 function vary_rho_epsilon2_distributed(k, q, rho, beta2, beta3, epsilon2, epsilon3)
@@ -52,11 +46,7 @@ epsilon3 = 0.95
 beta2 = 0.2/k
 beta3 = 4/q
 
-if in_parallel
-    psi1, nu1, psi2, nu2 = vary_rho_epsilon2_distributed(k, q, rho, beta2, beta3, epsilon2, epsilon3)
-else
-    psi1, nu1, psi2, nu2 = vary_rho_epsilon2(k, q, rho, beta2, beta3, epsilon2, epsilon3)
-end
+psi1, nu1, psi2, nu2 = vary_rho_epsilon2_distributed(k, q, rho, beta2, beta3, epsilon2, epsilon3)
 
 data = Dict("k"=>k, "q"=>q, "epsilon2"=>epsilon2, "epsilon3"=>epsilon3, "rho"=>rho, "beta2"=>beta2, "beta3"=>beta3, "psi1"=>psi1, "nu1"=>nu1, "psi2"=>psi2, "nu2"=>nu2)
 
