@@ -77,5 +77,5 @@ for e2 in epsilon2:
 
 datastring = json.dumps(data)
 
-with open(f"Data/stability/{output_filename}", "w") as output_file:
+with open(f"Data/polarization/{output_filename}", "w") as output_file:
     output_file.write(datastring)

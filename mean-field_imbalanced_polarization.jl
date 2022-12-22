@@ -50,6 +50,6 @@ psi1, nu1, psi2, nu2 = vary_rho_epsilon2_distributed(k, q, rho, beta2, beta3, ep
 
 data = Dict("k"=>k, "q"=>q, "epsilon2"=>epsilon2, "epsilon3"=>epsilon3, "rho"=>rho, "beta2"=>beta2, "beta3"=>beta3, "psi1"=>psi1, "nu1"=>nu1, "psi2"=>psi2, "nu2"=>nu2)
 
-open("Data/stability/mean-field_rho_epsilon2_polarization.json","w") do f
+open("Data/polarization/mean-field_rho_epsilon2_polarization.json","w") do f
   JSON.print(f, data)
 end

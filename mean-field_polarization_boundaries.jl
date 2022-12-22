@@ -99,10 +99,10 @@ else
     end
 end
 
-open("Data/stability/mean-field_polarization_boundaries_epsilon2.json","w") do f
+open("Data/polarization/mean-field_polarization_boundaries_epsilon2.json","w") do f
   JSON.print(f, data1)
 end
 
-open("Data/stability/mean-field_polarization_boundaries_epsilon3.json","w") do f
+open("Data/polarization/mean-field_polarization_boundaries_epsilon3.json","w") do f
     JSON.print(f, data2)
 end

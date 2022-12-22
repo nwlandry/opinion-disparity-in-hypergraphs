@@ -120,10 +120,10 @@ end
 data1 = Dict("beta2"=>b2, "beta3"=>b3, "epsilon2"=>epsilon2, "epsilon3"=>epsilon3, "psi"=>psi1, "nu"=>nu1)
 data2 = Dict("beta2"=>beta2, "beta3"=>beta3, "epsilon2"=>e2, "epsilon3"=>e3, "psi"=>psi2, "nu"=>nu2)
 
-open("Data/stability/mean-field_epsilon2_epsilon3_polarization.json","w") do f
+open("Data/polarization/mean-field_epsilon2_epsilon3_polarization.json","w") do f
   JSON.print(f, data1)
 end
 
-open("Data/stability/mean-field_beta2_beta3_polarization.json","w") do f
+open("Data/polarization/mean-field_beta2_beta3_polarization.json","w") do f
     JSON.print(f, data2)
 end
