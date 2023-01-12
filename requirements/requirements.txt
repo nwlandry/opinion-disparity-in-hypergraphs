@@ -1,4 +1,4 @@
-xgi>=0.5.0
+xgi>=0.5.3
 sklearn
 matplotlib
 numpy
