@@ -7,11 +7,11 @@ The contents of this repository are organized by directory.
 ## Top-level (no directory)
 
 Plotting scripts:
-* *plot_community_visualization.ipynb*: This notebook generates Fig. 1.
-* *plot_empirical_polarization.ipynb*: This notebook generates the subplots in the left column of Fig. 3 from data in the "Data/polarization" folder.
-* *plot_mean-field_polarization.ipynb*: This notebook generates the subplots in the right column of Fig. 3 from data in the "Data/polarization" folder as well as some of the subplots in Fig. 6.
-* *plot_imbalanced_beta2c.ipynb*: This notebook generates Fig. 5.
-* *plot_polarization_boundaries*: This notebook generates the subplots for Fig. 4.
+* *plot_illustrations.ipynb*: This notebook generates Figs. 1 and 2.
+* *plot_empirical_polarization.ipynb*: This notebook generates the subplots in the left column of Fig. 4 from data in the "Data/polarization" folder.
+* *plot_mean-field_polarization.ipynb*: This notebook generates the subplots in the right column of Fig. 4 from data in the "Data/polarization" folder as well as some of the subplots in Fig. 7.
+* *plot_imbalanced_beta2c.ipynb*: This notebook generates Fig. 6.
+* *plot_polarization_boundaries*: This notebook generates the subplots for Fig. 5.
 
 Mean-field polarization:
 * *mean-field_polarization.jl*: This script outputs JSON files of the polarization for (a) fixed $\widetilde{\beta}_2$ and $\widetilde{\beta}_3$ (varying $\epsilon_2$ and $\epsilon_3$) and (b) fixed $\epsilon_2$ and $\epsilon_3$ (varying $\widetilde{\beta}_2$ and $\widetilde{\beta}_3$).
@@ -36,7 +36,7 @@ This directory contains all of the modules used in the scripts in the top-level 
 This directory contains all the notebooks to produce all phase plots and compute the epidemic thresholds.
 
 * *beta2c_and_jacobian.nb*: This contains the calculations of the epidemic threshold for the balanced and imbalanced cases and the computation of the Jacobian matrices presented in Appendix C.
-* *phase_plots.nb*: This generates phase diagrams for the balanced (Fig. 2) and imbalanced cases (Fig. 6).
+* *phase_plots.nb*: This generates phase diagrams for the balanced (Fig. 3) and imbalanced cases (Fig. 7).
 
 ## Data
 This folder contains all the data used to generate the figures in the article.
@@ -45,13 +45,13 @@ This folder contains all the data used to generate the figures in the article.
 
 Most of these files contain the following fields: "gamma" (healing rate), "beta2" (pairwise infection rate), "beta3" (triangle infection rate), "epsilon2" (link community imbalance), "epsilon3" (triangle community imbalance), "psi" (polarization), and "nu" (the spectral abscissa, when able to be computed).
 
-* *empirical_epsilon2_epsilon3_polarization.json*: This is the data corresponding to the top left panel in Fig. 3.
-* *mean-field_epsilon2_epsilon3_polarization.json*: This is the data corresponding to the top right panel in Fig. 3.
-* *empirical_beta2_beta3_polarization.json*: This is the data corresponding to the bottom left panel in Fig. 3.
-* *mean-field_beta2_beta3_polarization.json*: This is the data corresponding to the bottom right panel in Fig. 3.
-* *mean-field_polarization_boundaries_epsilon2.json*: This is the data corresponding to Fig. 4a.
-* *mean-field_polarization_boundaries_epsilon2.json*: This is the data corresponding to Fig. 4b.
-* *mean-field_rho_epsilon2_polarization.json*: This is the data corresponding to Fig. 6.
+* *empirical_epsilon2_epsilon3_polarization.json*: This is the data corresponding to the top left panel in Fig. 4.
+* *mean-field_epsilon2_epsilon3_polarization.json*: This is the data corresponding to the top right panel in Fig. 4.
+* *empirical_beta2_beta3_polarization.json*: This is the data corresponding to the bottom left panel in Fig. 4.
+* *mean-field_beta2_beta3_polarization.json*: This is the data corresponding to the bottom right panel in Fig. 4.
+* *mean-field_polarization_boundaries_epsilon2.json*: This is the data corresponding to Fig. 5a.
+* *mean-field_polarization_boundaries_epsilon2.json*: This is the data corresponding to Fig. 5b.
+* *mean-field_rho_epsilon2_polarization.json*: This is the data corresponding to Fig. 7.
 
 ### vis
 * *vis[1, 2, 3].json* and *pos[1, 2, 3].json* are the hypergraph and nodal positions corresponding to the [top, middle, bottom] panel of Fig. 1 respectively.
@@ -66,7 +66,7 @@ This provides scripts that are not used in the manuscript but may prove helpful.
 
 Install the Python dependencies necessary to run the code by running
 ```
-pip install -r requirements/requirements.txt
+pip install -r requirements.txt
 ```
 from the top-level directory.
 
