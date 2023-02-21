@@ -1,5 +1,0 @@
-xgi>=0.5.3
-sklearn
-matplotlib
-numpy
-scipy

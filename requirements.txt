@@ -1,0 +1,6 @@
+xgi>=0.5.3
+numpy
+matplotlib
+scipy
+sklearn
+scikit-image
