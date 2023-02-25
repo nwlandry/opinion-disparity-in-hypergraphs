@@ -8,10 +8,10 @@ The contents of this repository are organized by directory.
 
 Plotting scripts:
 * *plot_illustrations.ipynb*: This notebook generates Figs. 1 and 2.
-* *plot_empirical_polarization.ipynb*: This notebook generates the subplots in the left column of Fig. 4 from data in the "Data/polarization" folder.
-* *plot_mean-field_polarization.ipynb*: This notebook generates the subplots in the right column of Fig. 4 from data in the "Data/polarization" folder as well as some of the subplots in Fig. 7.
+* *plot_balanced_polarization.ipynb*: This notebook generates Fig. 4 from data in the "Data/polarization" folder.
+* *plot_polarization_boundaries*: This notebook generates the subplots for Fig. 5
 * *plot_imbalanced_beta2c.ipynb*: This notebook generates Fig. 6.
-* *plot_polarization_boundaries*: This notebook generates the subplots for Fig. 5.
+* *plot_imbalanced_polarization.ipynb*: This notebook generates some of the subplots in Fig. 7 from data in the "Data/polarization" folder.
 
 Mean-field polarization:
 * *mean-field_polarization.jl*: This script outputs JSON files of the polarization for (a) fixed $\widetilde{\beta}_2$ and $\widetilde{\beta}_3$ (varying $\epsilon_2$ and $\epsilon_3$) and (b) fixed $\epsilon_2$ and $\epsilon_3$ (varying $\widetilde{\beta}_2$ and $\widetilde{\beta}_3$).
