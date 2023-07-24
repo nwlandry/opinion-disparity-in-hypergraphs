@@ -6,14 +6,74 @@ import numpy as np
 import xgi
 
 
-def get_polarization_in_parallel(arglist, numProcesses):
-    with mp.Pool(processes=numProcesses) as pool:
+def get_x1_x2_in_parallel(arglist, num_processes):
+    with mp.Pool(processes=num_processes) as pool:
+        fixed_points = pool.starmap(get_x1_x1, arglist)
+    return fixed_points
+
+
+def get_x1_x1(
+    H,
+    gamma,
+    beta,
+    community1,
+    community2,
+    rho1,
+    rho2,
+    tmax,
+    fraction_to_average,
+    num_sims,
+    is_verbose,
+):
+    x1 = 0
+    x2 = 0
+    for sim in range(num_sims):
+        t, _, I1, _, I2 = Gillespie_SIS_two_communities(
+            H,
+            beta,
+            gamma,
+            community1,
+            community2,
+            transmission_function=collective_contagion,
+            rho1=rho1,
+            rho2=rho2,
+            tmin=0,
+            tmax=tmax,
+        )
+        x1 += (
+            get_fixed_point(
+                t,
+                I1 / len(community1),
+                time_to_average=fraction_to_average * (np.max(t) - np.min(t)),
+            )
+            / num_sims
+        )
+
+        get_x1_x2_in_parallel += (
+            get_fixed_point(
+                t,
+                I2 / len(community2),
+                time_to_average=fraction_to_average * (np.max(t) - np.min(t)),
+            )
+            / num_sims
+        )
+
+    if is_verbose:
+        print(
+            (x1, x2),
+            flush=True,
+        )
+    return x1, x2
+
+
+def get_polarization_in_parallel(arglist, num_processes):
+    with mp.Pool(processes=num_processes) as pool:
         polarization = pool.starmap(get_polarization, arglist)
     return polarization
 
 
 def get_polarization(
-    filename,
+    H,
     gamma,
     beta,
     community1,
@@ -21,10 +81,8 @@ def get_polarization(
     tmax,
     fraction_to_average,
     num_sims,
-    isVerbose,
+    is_verbose,
 ):
-    H = xgi.read_hypergraph_json(filename)
-
     polarization = 0
     for sim in range(num_sims):
         t, _, I1, _, I2 = Gillespie_SIS_two_communities(
@@ -46,7 +104,7 @@ def get_polarization(
             / num_sims
         )
 
-    if isVerbose:
+    if is_verbose:
         print(
             polarization,
             flush=True,
@@ -247,8 +305,8 @@ def Gillespie_SIS_two_communities(
     community1,
     community2,
     transmission_function=collective_contagion,
-    initial_infecteds=None,
-    rho=None,
+    rho1=1,
+    rho2=0,
     tmin=0,
     tmax=100,
     recovery_weight=None,
@@ -295,9 +353,6 @@ def Gillespie_SIS_two_communities(
         If the user specifies both rho and initial_infecteds.
     """
 
-    if rho is not None and initial_infecteds is not None:
-        raise Exception("cannot define both initial_infecteds and rho")
-
     if transmission_weight is not None:
 
         def edgeweight(item):
@@ -318,14 +373,13 @@ def Gillespie_SIS_two_communities(
         def nodeweight(u):
             return None
 
-    if initial_infecteds is None:
-        if rho is None:
-            initial_number = 1
-        else:
-            initial_number = int(round(H.num_nodes * rho))
-        initial_infecteds = random.sample(list(H.nodes), initial_number)
+    initial_number1 = int(round(len(community1) * rho1))
+    initial_infecteds1 = random.sample(list(community1), initial_number1)
 
-    initial_infecteds = list(community1)
+    initial_number2 = int(round(len(community2) * rho2))
+    initial_infecteds2 = random.sample(list(community1), initial_number2)
+
+    initial_infecteds = list(initial_infecteds1) + list(initial_infecteds2)
     I1 = [len(initial_infecteds)]
     S1 = [len(community1) - I1[0]]
     I2 = [0]

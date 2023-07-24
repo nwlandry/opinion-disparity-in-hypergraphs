@@ -53,7 +53,7 @@ for b2 in beta2:
         beta = {2: b2, 3: b3}
         arglist.append(
             (
-                fname,
+                H,
                 gamma,
                 beta,
                 community1,

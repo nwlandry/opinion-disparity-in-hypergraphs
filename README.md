@@ -71,7 +71,6 @@ pip install -r requirements.txt
 from the top-level directory.
 
 Julia dependencies to install:
-* Distributed
 * JSON
 * IntervalArithmetic
 * IntervalRootFinding
