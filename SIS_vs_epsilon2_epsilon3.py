@@ -4,7 +4,7 @@ import os
 import numpy as np
 import xgi
 
-from src import HypergraphContagion
+from src.HypergraphContagion import get_polarization_in_parallel
 
 is_verbose = True
 num_processes = len(os.sched_getaffinity(0))
@@ -33,8 +33,8 @@ arglist = list()
 
 for e2 in epsilon2:
     for e3 in epsilon3:
-        fname = f"Data/SBM/hypergraphs/{e2}-{e3}.json"
-        H = xgi.read_hypergraph_json(fname)
+        fname = f"Data/SBM/hypergraphs/{e2}-{e3}.txt"
+        H = xgi.read_edgelist(fname)
         community1 = set(list(H.nodes)[: int(H.num_nodes / 2)])
         community2 = set(list(H.nodes)[int(H.num_nodes / 2) :])
         mean_link_degree = H.nodes.degree(order=1).mean()
@@ -61,7 +61,7 @@ for e2 in epsilon2:
             )
         )
 print("Simulations started!", flush=True)
-psi = HypergraphContagion.get_polarization_in_parallel(arglist, num_processes)
+psi = get_polarization_in_parallel(arglist, num_processes)
 psi = np.reshape(psi, [n, m], order="C")
 
 data["gamma"] = gamma

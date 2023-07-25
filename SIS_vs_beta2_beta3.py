@@ -4,7 +4,7 @@ import os
 import numpy as np
 import xgi
 
-from src import HypergraphContagion
+from src.HypergraphContagion import get_polarization_in_parallel
 
 # Epidemic parameters
 gamma = 1
@@ -34,8 +34,8 @@ if e3 not in data["epsilon3"]:
 
 data = dict()
 
-fname = f"Data/SBM/hypergraphs/{e2}-{e3}.json"
-H = xgi.read_hypergraph_json(fname)
+fname = f"Data/SBM/hypergraphs/{e2}-{e3}.txt"
+H = xgi.read_edgelist(fname)
 community1 = set(list(H.nodes)[: int(H.num_nodes / 2)])
 community2 = set(list(H.nodes)[int(H.num_nodes / 2) :])
 mean_link_degree = H.nodes.degree(order=1).mean()
@@ -53,7 +53,7 @@ for b2 in beta2:
         beta = {2: b2, 3: b3}
         arglist.append(
             (
-                H,
+                fname,
                 gamma,
                 beta,
                 community1,
@@ -65,7 +65,7 @@ for b2 in beta2:
             )
         )
 
-psi = HypergraphContagion.get_polarization_in_parallel(arglist, num_processes)
+psi = get_polarization_in_parallel(arglist, num_processes)
 psi = np.reshape(psi, [n, m], order="C")
 
 data["gamma"] = gamma

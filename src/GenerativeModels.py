@@ -54,13 +54,60 @@ def uniform_SBM_hypergraph(n, m, p, sizes):
     return edgelist
 
 
-def uniform_planted_partition_hypergraph(n, m, k, epsilon):
-    sizes = [int(n / 2), n - int(n / 2)]
+def uniform_planted_partition_hypergraph(n, m, k, epsilon, rho=0.5):
+    """Construct the m-uniform hypergraph planted partition model (m-HPPM)
+
+    Parameters
+    ----------
+    n : int > 0
+        Number of nodes
+    m : int > 0
+        Hyperedge size
+    k : float > 0
+        Mean degree
+    epsilon : float > 0
+        Imbalance parameter
+    rho : float between 0 and 1
+        The fraction of nodes in community 1, by default 0.5.
+
+    Returns
+    -------
+    Hypergraph
+        The constructed m-HPPM hypergraph.
+
+    Raises
+    ------
+    XGIError
+        - If rho is not between 0 and 1
+        - If the mean degree is negative.
+        - If epsilon is not between 0 and 1
+
+    See Also
+    --------
+    uniform_HSBM
+
+    References
+    ----------
+    Nicholas W. Landry and Juan G. Restrepo.
+    "Polarization in hypergraphs with community structure."
+    Preprint, 2023. https://doi.org/10.48550/arXiv.2302.13967
+    """
+
+    if rho < 0 or rho > 1:
+        raise Exception("The value of rho must be between 0 and 1")
+    if k < 0:
+        raise Exception("The mean degree must be non-negative")
+    if epsilon < 0 or epsilon > 1:
+        raise Exception("epsilon must be between 0 and 1")
+
+    sizes = [int(rho * n), n - int(rho * n)]
 
     p = k / (m * n ** (m - 1))
-    delta = epsilon * k / (m * n ** (m - 1))
-    p_in = p + (2 ** (m - 1) - 1) * delta
-    p_out = p - delta
+    # ratio of inter- to intra-community edges
+    q = rho**m + (1 - rho) ** m
+    r = 1 / q - 1
+    p_in = (1 + r * epsilon) * p
+    p_out = (1 - epsilon) * p
 
     p = p_out * np.ones([2] * m)
     p[tuple([0] * m)] = p_in

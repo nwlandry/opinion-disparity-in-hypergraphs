@@ -13,7 +13,7 @@ def get_x1_x2_in_parallel(arglist, num_processes):
 
 
 def get_x1_x1(
-    H,
+    fname,
     gamma,
     beta,
     community1,
@@ -25,6 +25,8 @@ def get_x1_x1(
     num_sims,
     is_verbose,
 ):
+    H = xgi.read_edgelist(fname)
+
     x1 = 0
     x2 = 0
     for sim in range(num_sims):
@@ -73,7 +75,7 @@ def get_polarization_in_parallel(arglist, num_processes):
 
 
 def get_polarization(
-    H,
+    fname,
     gamma,
     beta,
     community1,
@@ -83,6 +85,8 @@ def get_polarization(
     num_sims,
     is_verbose,
 ):
+    H = xgi.read_edgelist(fname)
+
     polarization = 0
     for sim in range(num_sims):
         t, _, I1, _, I2 = Gillespie_SIS_two_communities(

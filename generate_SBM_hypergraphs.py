@@ -19,14 +19,11 @@ with open("Data/SBM/hypergraphs/epsilon_values.json", "w") as file:
 
 for e2 in epsilon2:
     for e3 in epsilon3:
-        edgelist = list()
-        pairs = uniform_planted_partition_hypergraph(n, 2, k, e2)
-        edgelist.extend(pairs)
+        links = uniform_planted_partition_hypergraph(n, 2, k, e2)
         triangles = uniform_planted_partition_hypergraph(n, 3, q, e3)
-        edgelist.extend(triangles)
 
-        H = xgi.Hypergraph(edgelist)
+        H = xgi.Hypergraph(links + triangles)
 
         print(f"epsilon2={e2}, epsilon3={e3} completed", flush=True)
 
-        xgi.write_hypergraph_json(H, f"Data/SBM/hypergraphs/{e2}-{e3}.json")
+        xgi.write_edgelist(H, f"Data/SBM/hypergraphs/{e2}-{e3}.txt")

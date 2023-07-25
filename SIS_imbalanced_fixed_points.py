@@ -5,16 +5,28 @@ import sys
 import numpy as np
 import xgi
 
-from src import HypergraphContagion
+from src.GenerativeModels import uniform_planted_partition_hypergraph
+from src.HypergraphContagion import get_x1_x2_in_parallel
 
 rho = float(sys.argv[1])
 epsilon2 = float(sys.argv[2])
 epsilon3 = float(sys.argv[2])
+num_sims = 10
 
 # parameters
 n = 10000
 k = 20
 q = 20
+
+fnamelist = []
+for i in range(num_sims):
+    links = uniform_planted_partition_hypergraph(n, 2, k, epsilon2, rho)
+    triangles = uniform_planted_partition_hypergraph(n, 3, rho, q, epsilon3, rho)
+    H = xgi.Hypergraph(links + triangles)
+
+    fnamelist.append(f"Data/SBM/hypergraphs/{rho}-{epsilon2}-{epsilon3}-{i}")
+    xgi.write_edgelist(H, fnamelist[-1])
+    print(f"Hypergraph {i} generated")
 
 # Epidemic parameters
 gamma = 1
@@ -35,40 +47,38 @@ data = dict()
 arglist = list()
 for rho1 in np.linspace(0, 1, numxpoints):
     for rho2 in np.linspace(0, 1, numypoints):
-        # make the hypergraph
-        H = xgi.uniform_HPPM(n, 2, rho, k, epsilon2) << xgi.uniform_HPPM(
-            n, 3, rho, q, epsilon3
-        )
+        # different instances of hypergraphs
+        for fname in fnamelist:
+            H = xgi.read_edgelist(fname)
+            community1 = set(list(H.nodes)[: int(H.num_nodes * rho)])
+            community2 = set(list(H.nodes)[int(H.num_nodes * (1 - rho)) :])
+            mean_link_degree = H.nodes.degree(order=1).mean()
+            mean_triangle_degree = H.nodes.degree(order=2).mean()
 
-        community1 = set(list(H.nodes)[: int(H.num_nodes * rho)])
-        community2 = set(list(H.nodes)[int(H.num_nodes * (1 - rho)) :])
-        mean_link_degree = H.nodes.degree(order=1).mean()
-        mean_triangle_degree = H.nodes.degree(order=2).mean()
+            beta2c = gamma / mean_link_degree
+            beta3c = gamma / mean_triangle_degree
 
-        beta2c = gamma / mean_link_degree
-        beta3c = gamma / mean_triangle_degree
+            beta2 = beta2tilde * beta2c
+            beta3 = beta3tilde * beta3c
 
-        beta2 = beta2tilde * beta2c
-        beta3 = beta3tilde * beta3c
-
-        beta = {2: beta2, 3: beta3}
-        arglist.append(
-            (
-                H,
-                gamma,
-                beta,
-                community1,
-                community2,
-                rho1,
-                rho2,
-                tmax,
-                fraction_to_average,
-                num_sims,
-                is_verbose,
+            beta = {2: beta2, 3: beta3}
+            arglist.append(
+                (
+                    fname,
+                    gamma,
+                    beta,
+                    community1,
+                    community2,
+                    rho1,
+                    rho2,
+                    tmax,
+                    fraction_to_average,
+                    num_sims,
+                    is_verbose,
+                )
             )
-        )
 
-fixed_points = HypergraphContagion.get_x1_x2_in_parallel(arglist, num_processes)
+fixed_points = get_x1_x2_in_parallel(arglist, num_processes)
 
 data["gamma"] = gamma
 data["beta2"] = beta2tilde
