@@ -390,9 +390,9 @@ def Gillespie_SIS_two_communities(
     initial_infecteds2 = random.sample(list(community2), initial_number2)
 
     initial_infecteds = list(initial_infecteds1) + list(initial_infecteds2)
-    I1 = [len(initial_infecteds)]
+    I1 = [len(initial_infecteds1)]
     S1 = [len(community1) - I1[0]]
-    I2 = [0]
+    I2 = [len(initial_infecteds2)]
     S2 = [len(community2) - I2[0]]
     times = [tmin]
 
