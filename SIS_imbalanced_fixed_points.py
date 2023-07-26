@@ -10,7 +10,7 @@ from src.HypergraphContagion import get_x1_x2_in_parallel
 
 rho = float(sys.argv[1])
 epsilon2 = float(sys.argv[2])
-epsilon3 = float(sys.argv[2])
+epsilon3 = float(sys.argv[3])
 num_realizations = 5
 
 # parameters
@@ -24,7 +24,7 @@ for i in range(num_realizations):
     triangles = uniform_planted_partition_hypergraph(n, 3, q, epsilon3, rho)
     H = xgi.Hypergraph(links + triangles)
 
-    fnamelist.append(f"Data/SBM/hypergraphs/{rho}-{epsilon2}-{epsilon3}-{i}")
+    fnamelist.append(f"Data/SBM/hypergraphs/{rho}-{epsilon2}-{epsilon3}-{i}.txt")
     xgi.write_edgelist(H, fnamelist[-1])
     print(f"Hypergraph {i} generated", flush=True)
 

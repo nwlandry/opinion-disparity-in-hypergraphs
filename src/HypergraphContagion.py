@@ -25,7 +25,7 @@ def get_x1_x1(
     num_sims,
     is_verbose,
 ):
-    H = xgi.read_edgelist(fname)
+    H = xgi.read_edgelist(fname, nodetype=int)
     H.add_nodes_from(community1.union(community2))
 
     x1 = 0
@@ -86,7 +86,7 @@ def get_polarization(
     num_sims,
     is_verbose,
 ):
-    H = xgi.read_edgelist(fname)
+    H = xgi.read_edgelist(fname, nodetype=int)
     H.add_nodes_from(community1.union(community2))
 
     polarization = 0
@@ -120,8 +120,10 @@ def get_polarization(
 
 def get_fixed_point(time, data, time_to_average=None):
     n = np.size(time, axis=0)
+
     if n == 1:
         return data[0]
+    
     if time_to_average is not None:
         cutoff = time[-1] - time_to_average
         i = n - 1
