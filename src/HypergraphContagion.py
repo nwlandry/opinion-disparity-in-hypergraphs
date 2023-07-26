@@ -26,6 +26,7 @@ def get_x1_x1(
     is_verbose,
 ):
     H = xgi.read_edgelist(fname)
+    H.add_nodes_from(community1.union(community2))
 
     x1 = 0
     x2 = 0
@@ -51,7 +52,7 @@ def get_x1_x1(
             / num_sims
         )
 
-        get_x1_x2_in_parallel += (
+        x2 += (
             get_fixed_point(
                 t,
                 I2 / len(community2),
@@ -86,6 +87,7 @@ def get_polarization(
     is_verbose,
 ):
     H = xgi.read_edgelist(fname)
+    H.add_nodes_from(community1.union(community2))
 
     polarization = 0
     for sim in range(num_sims):
@@ -118,6 +120,8 @@ def get_polarization(
 
 def get_fixed_point(time, data, time_to_average=None):
     n = np.size(time, axis=0)
+    if n == 1:
+        return data[0]
     if time_to_average is not None:
         cutoff = time[-1] - time_to_average
         i = n - 1
@@ -381,7 +385,7 @@ def Gillespie_SIS_two_communities(
     initial_infecteds1 = random.sample(list(community1), initial_number1)
 
     initial_number2 = int(round(len(community2) * rho2))
-    initial_infecteds2 = random.sample(list(community1), initial_number2)
+    initial_infecteds2 = random.sample(list(community2), initial_number2)
 
     initial_infecteds = list(initial_infecteds1) + list(initial_infecteds2)
     I1 = [len(initial_infecteds)]

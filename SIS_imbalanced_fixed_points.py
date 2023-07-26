@@ -11,7 +11,7 @@ from src.HypergraphContagion import get_x1_x2_in_parallel
 rho = float(sys.argv[1])
 epsilon2 = float(sys.argv[2])
 epsilon3 = float(sys.argv[2])
-num_sims = 10
+num_realizations = 5
 
 # parameters
 n = 10000
@@ -19,14 +19,14 @@ k = 20
 q = 20
 
 fnamelist = []
-for i in range(num_sims):
+for i in range(num_realizations):
     links = uniform_planted_partition_hypergraph(n, 2, k, epsilon2, rho)
-    triangles = uniform_planted_partition_hypergraph(n, 3, rho, q, epsilon3, rho)
+    triangles = uniform_planted_partition_hypergraph(n, 3, q, epsilon3, rho)
     H = xgi.Hypergraph(links + triangles)
 
     fnamelist.append(f"Data/SBM/hypergraphs/{rho}-{epsilon2}-{epsilon3}-{i}")
     xgi.write_edgelist(H, fnamelist[-1])
-    print(f"Hypergraph {i} generated")
+    print(f"Hypergraph {i} generated", flush=True)
 
 # Epidemic parameters
 gamma = 1
@@ -49,14 +49,11 @@ for rho1 in np.linspace(0, 1, numxpoints):
     for rho2 in np.linspace(0, 1, numypoints):
         # different instances of hypergraphs
         for fname in fnamelist:
-            H = xgi.read_edgelist(fname)
-            community1 = set(list(H.nodes)[: int(H.num_nodes * rho)])
-            community2 = set(list(H.nodes)[int(H.num_nodes * (1 - rho)) :])
-            mean_link_degree = H.nodes.degree(order=1).mean()
-            mean_triangle_degree = H.nodes.degree(order=2).mean()
+            community1 = {i for i in range(int(H.num_nodes * rho))}
+            community2 = {i for i in range(int(H.num_nodes * rho), n)}
 
-            beta2c = gamma / mean_link_degree
-            beta3c = gamma / mean_triangle_degree
+            beta2c = gamma / k
+            beta3c = gamma / q
 
             beta2 = beta2tilde * beta2c
             beta3 = beta3tilde * beta3c
@@ -78,16 +75,18 @@ for rho1 in np.linspace(0, 1, numxpoints):
                 )
             )
 
+print("Started finding fixed points:", flush=True)
 fixed_points = get_x1_x2_in_parallel(arglist, num_processes)
 
 data["gamma"] = gamma
 data["beta2"] = beta2tilde
 data["beta3"] = beta3tilde
+data["rho"] = rho
 data["epsilon2"] = epsilon2
 data["epsilon3"] = epsilon3
 data["fixed-points"] = fixed_points
 
 datastring = json.dumps(data)
 
-with open(f"Data/polarization/{rho}-{epsilon2}.json", "w") as output_file:
+with open(f"Data/polarization/{rho}-{epsilon2}-{epsilon3}.json", "w") as output_file:
     output_file.write(datastring)
