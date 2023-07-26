@@ -26,4 +26,4 @@ for e2 in epsilon2:
 
         print(f"epsilon2={e2}, epsilon3={e3} completed", flush=True)
 
-        xgi.write_edgelist(H, f"Data/SBM/hypergraphs/{e2}-{e3}.txt")
+        xgi.write_json(H, f"Data/SBM/hypergraphs/{e2}-{e3}.json")

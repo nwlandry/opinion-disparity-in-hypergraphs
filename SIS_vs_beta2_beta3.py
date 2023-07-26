@@ -34,8 +34,8 @@ if e3 not in data["epsilon3"]:
 
 data = dict()
 
-fname = f"Data/SBM/hypergraphs/{e2}-{e3}.txt"
-H = xgi.read_edgelist(fname)
+fname = f"Data/SBM/hypergraphs/{e2}-{e3}.json"
+H = xgi.read_json(fname, nodetype=int)
 community1 = set(list(H.nodes)[: int(H.num_nodes / 2)])
 community2 = set(list(H.nodes)[int(H.num_nodes / 2) :])
 mean_link_degree = H.nodes.degree(order=1).mean()

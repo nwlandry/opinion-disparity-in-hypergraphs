@@ -86,8 +86,7 @@ def get_polarization(
     num_sims,
     is_verbose,
 ):
-    H = xgi.read_edgelist(fname, nodetype=int)
-    H.add_nodes_from(community1.union(community2))
+    H = xgi.read_json(fname, nodetype=int)
 
     polarization = 0
     for sim in range(num_sims):

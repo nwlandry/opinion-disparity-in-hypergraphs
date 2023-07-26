@@ -14,6 +14,8 @@ gamma = 1
 tmax = 100
 fraction_to_average = 0.1
 
+num_nodes = 10000
+
 num_sims = 1
 
 beta2tilde = 0.2
@@ -33,8 +35,8 @@ arglist = list()
 
 for e2 in epsilon2:
     for e3 in epsilon3:
-        fname = f"Data/SBM/hypergraphs/{e2}-{e3}.txt"
-        H = xgi.read_edgelist(fname)
+        fname = f"Data/SBM/hypergraphs/{e2}-{e3}.json"
+        H = xgi.read_json(fname, nodetype=int)
         community1 = set(list(H.nodes)[: int(H.num_nodes / 2)])
         community2 = set(list(H.nodes)[int(H.num_nodes / 2) :])
         mean_link_degree = H.nodes.degree(order=1).mean()
@@ -49,7 +51,7 @@ for e2 in epsilon2:
         beta = {2: beta2, 3: beta3}
         arglist.append(
             (
-                H,
+                fname,
                 gamma,
                 beta,
                 community1,
