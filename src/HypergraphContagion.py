@@ -122,7 +122,7 @@ def get_fixed_point(time, data, time_to_average=None):
 
     if n == 1:
         return data[0]
-    
+
     if time_to_average is not None:
         cutoff = time[-1] - time_to_average
         i = n - 1
