@@ -69,13 +69,13 @@ def get_x1_x1(
     return x1, x2
 
 
-def get_polarization_in_parallel(arglist, num_processes):
+def get_opinion_disparity_in_parallel(arglist, num_processes):
     with mp.Pool(processes=num_processes) as pool:
-        polarization = pool.starmap(get_polarization, arglist)
+        polarization = pool.starmap(get_opinion_disparity, arglist)
     return polarization
 
 
-def get_polarization(
+def get_opinion_disparity(
     fname,
     gamma,
     beta,

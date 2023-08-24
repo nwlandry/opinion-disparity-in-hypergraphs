@@ -10,7 +10,7 @@ else
 end
 
 unzip(a) = map(x->getfield.(a, x), fieldnames(eltype(a)))
-include("src/polarization.jl")
+include("src/opiniondisparity.jl")
 
 
 function vary_beta2_beta3(beta2, beta3, epsilon2, epsilon3, parallel)
@@ -25,7 +25,7 @@ function vary_beta2_beta3(beta2, beta3, epsilon2, epsilon3, parallel)
         Threads.@threads for (i, j) in collect(Iterators.product(1:m, 1:n))
             b2 = beta2[i]
             b3 = beta3[j]
-            psi[i, j], nu[i, j] = get_polarization(epsilon2, epsilon3, b2, b3)
+            psi[i, j], nu[i, j] = get_opinion_disparity(epsilon2, epsilon3, b2, b3)
             print("$i, $j\n")
         end
     else
@@ -33,7 +33,7 @@ function vary_beta2_beta3(beta2, beta3, epsilon2, epsilon3, parallel)
         for (i, j) in Iterators.product(1:m, 1:n)
             b2 = beta2[i]
             b3 = beta3[j]
-            psi[i, j], nu[i, j] = get_polarization(epsilon2, epsilon3, b2, b3)
+            psi[i, j], nu[i, j] = get_opinion_disparity(epsilon2, epsilon3, b2, b3)
             print("$i, $j\n")
         end
     end
@@ -69,10 +69,10 @@ for e3 in epsilon3
     data2["nu-$e3"] = nu
 end
 
-open("Data/polarization/mean-field_polarization_boundaries_epsilon2.json","w") do f
+open("Data/opiniondisparity/mean-field_opinion_disparity_boundaries_epsilon2.json","w") do f
   JSON.print(f, data1)
 end
 
-open("Data/polarization/mean-field_polarization_boundaries_epsilon3.json","w") do f
+open("Data/opiniondisparity/mean-field_opinion_disparity_boundaries_epsilon3.json","w") do f
     JSON.print(f, data2)
 end

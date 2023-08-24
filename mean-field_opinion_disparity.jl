@@ -11,7 +11,7 @@ end
 
 
 unzip(a) = map(x->getfield.(a, x), fieldnames(eltype(a)))
-include("src/polarization.jl")
+include("src/opiniondisparity.jl")
 
 
 function vary_epsilon2_epsilon3(beta2, beta3, epsilon2, epsilon3, parallel)
@@ -26,7 +26,8 @@ function vary_epsilon2_epsilon3(beta2, beta3, epsilon2, epsilon3, parallel)
         Threads.@threads for (i, j) in collect(Iterators.product(1:m, 1:n))
             e2 = epsilon2[i]
             e3 = epsilon3[j]
-            psi[i, j], nu[i, j] = get_polarization(e2, e3, beta2, beta3)
+            psi[i, j], nu[i, j] = get_opinion_disparity
+            (e2, e3, beta2, beta3)
             print("$i, $j\n")
         end
     else
@@ -34,7 +35,8 @@ function vary_epsilon2_epsilon3(beta2, beta3, epsilon2, epsilon3, parallel)
         for (i, j) in Iterators.product(1:m, 1:n)
             e2 = epsilon2[i]
             e3 = epsilon3[j]
-            psi[i, j], nu[i, j] = get_polarization(e2, e3, beta2, beta3)
+            psi[i, j], nu[i, j] = get_opinion_disparity
+            (e2, e3, beta2, beta3)
             print("$i, $j\n")
         end
     end
@@ -54,7 +56,8 @@ function vary_beta2_beta3(beta2, beta3, epsilon2, epsilon3)
         Threads.@threads for (i, j) in collect(Iterators.product(1:m, 1:n))
             b2 = beta2[i]
             b3 = beta3[j]
-            psi[i, j], nu[i, j] = get_polarization(epsilon2, epsilon3, b2, b3)
+            psi[i, j], nu[i, j] = get_opinion_disparity
+            (epsilon2, epsilon3, b2, b3)
             print("$i, $j\n")
         end
     else
@@ -62,7 +65,8 @@ function vary_beta2_beta3(beta2, beta3, epsilon2, epsilon3)
         for (i, j) in Iterators.product(1:m, 1:n)
             b2 = beta2[i]
             b3 = beta3[j]
-            psi[i, j], nu[i, j] = get_polarization(epsilon2, epsilon3, b2, b3)
+            psi[i, j], nu[i, j] = get_opinion_disparity
+            (epsilon2, epsilon3, b2, b3)
             print("$i, $j\n")
         end
     end
@@ -92,10 +96,10 @@ psi2, nu2 = vary_beta2_beta3_distributed(beta2, beta3, e2, e3, in_parallel)
 data1 = Dict("beta2"=>b2, "beta3"=>b3, "epsilon2"=>epsilon2, "epsilon3"=>epsilon3, "psi"=>psi1, "nu"=>nu1)
 data2 = Dict("beta2"=>beta2, "beta3"=>beta3, "epsilon2"=>e2, "epsilon3"=>e3, "psi"=>psi2, "nu"=>nu2)
 
-open("Data/polarization/mean-field_epsilon2_epsilon3_polarization.json","w") do f
+open("Data/opiniondisparity/mean-field_epsilon2_epsilon3_opinion_disparity.json","w") do f
   JSON.print(f, data1)
 end
 
-open("Data/polarization/mean-field_beta2_beta3_polarization.json","w") do f
+open("Data/opiniondisparity/mean-field_beta2_beta3_opinion_disparity.json","w") do f
     JSON.print(f, data2)
 end

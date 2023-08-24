@@ -8,15 +8,15 @@ The contents of this repository are organized by directory.
 
 Plotting scripts:
 * *plot_illustrations.ipynb*: This notebook generates Figs. 1 and 2.
-* *plot_balanced_polarization.ipynb*: This notebook generates Fig. 4 from data in the "Data/polarization" folder.
-* *plot_polarization_boundaries*: This notebook generates the subplots for Fig. 5
+* *plot_balanced_opinion_disparity.ipynb*: This notebook generates Fig. 4 from data in the "Data/opiniondisparity" folder.
+* *plot_opinion_disparity_boundaries*: This notebook generates the subplots for Fig. 5
 * *plot_imbalanced_beta2c.ipynb*: This notebook generates Fig. 6.
-* *plot_imbalanced_polarization.ipynb*: This notebook generates some of the subplots in Fig. 7 from data in the "Data/polarization" folder.
+* *plot_imbalanced_opinion_disparity.ipynb*: This notebook generates some of the subplots in Fig. 7 from data in the "Data/opiniondisparity" folder.
 
-Mean-field polarization:
-* *mean-field_polarization.jl*: This script outputs JSON files of the polarization for (a) fixed $\widetilde{\beta}_2$ and $\widetilde{\beta}_3$ (varying $\epsilon_2$ and $\epsilon_3$) and (b) fixed $\epsilon_2$ and $\epsilon_3$ (varying $\widetilde{\beta}_2$ and $\widetilde{\beta}_3$).
-* *mean-field_imbalanced_polarization.jl*: This script outputs a JSON file of $\psi_1$ and $\psi_2$ with respect to $\rho$ and $\epsilon_2$.
-* *mean-field_polarization_boundaries.jl*: This script outputs JSON files of the polarization with respect to $\widetilde{\beta}_2$ and $\widetilde{\beta}_3$ for different values of (a) $\epsilon_2$ (holding $\epsilon_3$ fixed) and (b) $\epsilon_3$ (holding $\epsilon_2$ fixed).
+Mean-field opinion disparity:
+* *mean-field_opinion_disparity.jl*: This script outputs JSON files of the opinion disparity for (a) fixed $\widetilde{\beta}_2$ and $\widetilde{\beta}_3$ (varying $\epsilon_2$ and $\epsilon_3$) and (b) fixed $\epsilon_2$ and $\epsilon_3$ (varying $\widetilde{\beta}_2$ and $\widetilde{\beta}_3$).
+* *mean-field_imbalanced_opinion_disparity.jl*: This script outputs a JSON file of $\psi_1$ and $\psi_2$ with respect to $\rho$ and $\epsilon_2$.
+* *mean-field_opinion_disparity_boundaries.jl*: This script outputs JSON files of the opinion disparity with respect to $\widetilde{\beta}_2$ and $\widetilde{\beta}_3$ for different values of (a) $\epsilon_2$ (holding $\epsilon_3$ fixed) and (b) $\epsilon_3$ (holding $\epsilon_2$ fixed).
 
 Microscopic simulation:
 * *SIS_vs_beta2_beta3.py*: This script runs the stochastic hypergraph SIS model on empirical datasets (generated with *generate_SBM_hypergraphs) for fixed $\epsilon_2$ and $\epsilon_3$ (varying $\widetilde{\beta}_2$ and $\widetilde{\beta}_3$) and outputs each to a JSON file.
@@ -29,8 +29,8 @@ Synthetic data:
 This directory contains all of the modules used in the scripts in the top-level directory.
 
 * *GenerativeModels.py*: This module contains functions for generating m-HSBM hypergraphs, m-HPPM hypergraphs, and m-uniform Erdős–Rényi hypergraphs.
-* *HypergraphContagion.py*: This module contains functions for simulating the SIS model on hypergraphs and outputting the polarization.
-* *polarization.jl*: This module contains functions for computing the mean-field polarization for both the balanced and imbalanced cases.
+* *HypergraphContagion.py*: This module contains functions for simulating the SIS model on hypergraphs and outputting the opinion disparity.
+* *opiniondisparity.jl*: This module contains functions for computing the mean-field opinion disparity for both the balanced and imbalanced cases.
 
 ## Mathematica
 This directory contains all the notebooks to produce all phase plots and compute the epidemic thresholds.
@@ -41,9 +41,9 @@ This directory contains all the notebooks to produce all phase plots and compute
 ## Data
 This folder contains all the data used to generate the figures in the article.
 
-### polarization
+### Opinion disparity
 
-Most of these files contain the following fields: "gamma" (healing rate), "beta2" (pairwise infection rate), "beta3" (triangle infection rate), "epsilon2" (link community imbalance), "epsilon3" (triangle community imbalance), "psi" (polarization), and "nu" (the spectral abscissa, when able to be computed).
+Most of these files contain the following fields: "gamma" (healing rate), "beta2" (pairwise infection rate), "beta3" (triangle infection rate), "epsilon2" (link community imbalance), "epsilon3" (triangle community imbalance), "psi" (opinion disparity), and "nu" (the spectral abscissa, when able to be computed).
 
 * *empirical_epsilon2_epsilon3_polarization.json*: This is the data corresponding to the top left panel in Fig. 4.
 * *mean-field_epsilon2_epsilon3_polarization.json*: This is the data corresponding to the top right panel in Fig. 4.

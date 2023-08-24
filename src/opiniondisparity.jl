@@ -1,6 +1,6 @@
 using IntervalArithmetic, IntervalRootFinding, StaticArrays, LinearAlgebra
 
-function get_polarization(epsilon2, epsilon3, beta2, beta3)
+function get_opinion_disparity(epsilon2, epsilon3, beta2, beta3)
     psi_max = 0
     nu_max = Inf
 
@@ -45,7 +45,7 @@ function get_polarization(epsilon2, epsilon3, beta2, beta3)
 end
 
 
-function get_imbalanced_polarization(k, q, rho, epsilon2, epsilon3, beta2, beta3)
+function get_imbalanced_opinion_disparity(k, q, rho, epsilon2, epsilon3, beta2, beta3)
     psi1_max = 0
     psi2_max = 0
     nu1_max = Inf
