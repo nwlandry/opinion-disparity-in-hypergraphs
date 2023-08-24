@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       158,          7]
-NotebookDataLength[   2016015,      33040]
-NotebookOptionsPosition[   2014599,      33008]
-NotebookOutlinePosition[   2015066,      33026]
-CellTagsIndexPosition[   2015023,      33023]
+NotebookDataLength[   2016162,      33043]
+NotebookOptionsPosition[   2014746,      33011]
+NotebookOutlinePosition[   2015213,      33029]
+CellTagsIndexPosition[   2015170,      33026]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -79,8 +79,8 @@ Cell[BoxData[{
   RowBox[{"data", " ", "=", " ", 
    RowBox[{
    "Import", "[", 
-    "\"\</Users/nicholaslandry/Documents/GitHub/polarizability-in-hypergraphs/\
-Data/polarization/0.506-0.5-0.95.json\>\"", "]"}]}], 
+    "\"\</Users/nicholaslandry/Documents/GitHub/opinion-disparity-in-\
+hypergraphs/Data/opiniondisparity/0.506-0.5-0.95.json\>\"", "]"}]}], 
   ";"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{"pts", " ", "=", " ", 
@@ -266,9 +266,10 @@ Data/polarization/0.506-0.5-0.95.json\>\"", "]"}]}],
    3.900423086314115*^9, 3.90042313497406*^9}, {3.900423179995263*^9, 
    3.900423276718759*^9}, {3.9004234096322927`*^9, 3.900423437588005*^9}, {
    3.900423508684862*^9, 3.900423518543315*^9}, {3.900423549199871*^9, 
-   3.9004235952184963`*^9}, {3.900423662736027*^9, 3.90042366642063*^9}},
- CellLabel->
-  "In[174]:=",ExpressionUUID->"c314b0c1-4ec6-48f4-943d-ac446ccce785"],
+   3.9004235952184963`*^9}, {3.900423662736027*^9, 3.90042366642063*^9}, {
+   3.901871069953067*^9, 
+   3.901871081780161*^9}},ExpressionUUID->"c314b0c1-4ec6-48f4-943d-\
+ac446ccce785"],
 
 Cell[BoxData[
  GraphicsBox[{{{}, {
@@ -2848,8 +2849,8 @@ Cell[BoxData[{
   RowBox[{"data", " ", "=", " ", 
    RowBox[{
    "Import", "[", 
-    "\"\</Users/nicholaslandry/Documents/GitHub/polarizability-in-hypergraphs/\
-Data/polarization/0.515-0.5-0.95.json\>\"", "]"}]}], 
+    "\"\</Users/nicholaslandry/Documents/GitHub/opinion-disparity-in-\
+hypergraphs/Data/opiniondisparity/0.515-0.5-0.95.json\>\"", "]"}]}], 
   ";"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{"pts", " ", "=", " ", 
@@ -3035,9 +3036,9 @@ Data/polarization/0.515-0.5-0.95.json\>\"", "]"}]}],
    3.900423086314115*^9, 3.90042313497406*^9}, {3.900423179995263*^9, 
    3.900423276718759*^9}, {3.9004234096322927`*^9, 3.900423437588005*^9}, {
    3.900423508684862*^9, 3.900423518543315*^9}, {3.900423549199871*^9, 
-   3.900423656780002*^9}},
- CellLabel->
-  "In[187]:=",ExpressionUUID->"3d3e05b2-6e95-40f3-81e5-83741c101cf6"],
+   3.900423656780002*^9}, {3.901871087433457*^9, 
+   3.901871090426622*^9}},ExpressionUUID->"3d3e05b2-6e95-40f3-81e5-\
+83741c101cf6"],
 
 Cell[BoxData[
  GraphicsBox[{{{}, {
@@ -5647,8 +5648,8 @@ Cell[BoxData[{
   RowBox[{"data", " ", "=", " ", 
    RowBox[{
    "Import", "[", 
-    "\"\</Users/nicholaslandry/Documents/GitHub/polarizability-in-hypergraphs/\
-Data/polarization/0.506-0.18-0.95.json\>\"", "]"}]}], 
+    "\"\</Users/nicholaslandry/Documents/GitHub/opinion-disparity-in-\
+hypergraphs/Data/opiniondisparity/0.506-0.18-0.95.json\>\"", "]"}]}], 
   ";"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{"pts", " ", "=", " ", 
@@ -5658,9 +5659,9 @@ Data/polarization/0.506-0.18-0.95.json\>\"", "]"}]}],
   RowBox[{"data", " ", "=", " ", 
    RowBox[{
    "Import", "[", 
-    "\"\</Users/nicholaslandry/Documents/GitHub/polarizability-in-hypergraphs/\
-Data/polarization/0.506-0.18-0.95-trajectories.json\>\"", "]"}]}], 
-  ";"}], "\[IndentingNewLine]", 
+    "\"\</Users/nicholaslandry/Documents/GitHub/opinion-disparity-in-\
+hypergraphs/Data/opiniondisparity/0.506-0.18-0.95-trajectories.json\>\"", 
+    "]"}]}], ";"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{"x0", " ", "=", " ", 
    RowBox[{"\"\<0-x\>\"", "/.", "data"}]}], ";"}], "\[IndentingNewLine]", 
@@ -5705,8 +5706,10 @@ Data/polarization/0.506-0.18-0.95-trajectories.json\>\"", "]"}]}],
    3.900423656780002*^9}, {3.900423688620174*^9, 3.900423696999362*^9}, {
    3.901616343790349*^9, 3.901616409043873*^9}, {3.9016165784182787`*^9, 
    3.901616641159964*^9}, {3.9016169086810303`*^9, 3.901616925754479*^9}, {
-   3.9016171429513397`*^9, 3.90161716016819*^9}, 3.901630373183579*^9},
- CellLabel->"In[17]:=",ExpressionUUID->"7d5c4447-be65-4eac-8268-8d4dd4bca83c"],
+   3.9016171429513397`*^9, 3.90161716016819*^9}, 3.901630373183579*^9, {
+   3.901871096256502*^9, 
+   3.901871111470223*^9}},ExpressionUUID->"7d5c4447-be65-4eac-8268-\
+8d4dd4bca83c"],
 
 Cell[CellGroupData[{
 
@@ -30224,8 +30227,8 @@ Cell[BoxData[{
   RowBox[{"data", " ", "=", " ", 
    RowBox[{
    "Import", "[", 
-    "\"\</Users/nicholaslandry/Documents/GitHub/polarizability-in-hypergraphs/\
-Data/polarization/0.515-0.18-0.95.json\>\"", "]"}]}], 
+    "\"\</Users/nicholaslandry/Documents/GitHub/opinion-disparity-in-\
+hypergraphs/Data/opiniondisparity/0.515-0.18-0.95.json\>\"", "]"}]}], 
   ";"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{"pts", " ", "=", " ", 
@@ -30412,9 +30415,9 @@ Data/polarization/0.515-0.18-0.95.json\>\"", "]"}]}],
    3.900423276718759*^9}, {3.9004234096322927`*^9, 3.900423437588005*^9}, {
    3.900423508684862*^9, 3.900423518543315*^9}, {3.900423549199871*^9, 
    3.900423656780002*^9}, {3.900423688620174*^9, 3.9004237259979467`*^9}, {
-   3.9004266762154408`*^9, 3.900426695281254*^9}},
- CellLabel->
-  "In[222]:=",ExpressionUUID->"66639d46-e2d6-457c-95c6-c856b766fc69"],
+   3.9004266762154408`*^9, 3.900426695281254*^9}, {3.9018711158300133`*^9, 
+   3.901871119037796*^9}},ExpressionUUID->"66639d46-e2d6-457c-95c6-\
+c856b766fc69"],
 
 Cell[BoxData[
  GraphicsBox[{{{}, {
@@ -33026,21 +33029,21 @@ CellTagsIndex->{}
 (*NotebookFileOutline
 Notebook[{
 Cell[CellGroupData[{
-Cell[580, 22, 9372, 248, 355, "Input",ExpressionUUID->"c314b0c1-4ec6-48f4-943d-ac446ccce785"],
-Cell[9955, 272, 160990, 2514, 334, "Output",ExpressionUUID->"aeb1f010-9826-43f4-8bcc-54ed9fcfebe7"]
+Cell[580, 22, 9407, 249, 355, "Input",ExpressionUUID->"c314b0c1-4ec6-48f4-943d-ac446ccce785"],
+Cell[9990, 273, 160990, 2514, 334, "Output",ExpressionUUID->"aeb1f010-9826-43f4-8bcc-54ed9fcfebe7"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[170982, 2791, 9325, 248, 355, "Input",ExpressionUUID->"3d3e05b2-6e95-40f3-81e5-83741c101cf6"],
-Cell[180310, 3041, 162338, 2546, 334, "Output",ExpressionUUID->"9b55ba10-fa94-485c-a623-4605e3692464"]
+Cell[171017, 2792, 9356, 248, 355, "Input",ExpressionUUID->"3d3e05b2-6e95-40f3-81e5-83741c101cf6"],
+Cell[180376, 3042, 162338, 2546, 334, "Output",ExpressionUUID->"9b55ba10-fa94-485c-a623-4605e3692464"]
 }, Open  ]],
-Cell[342663, 5590, 5091, 118, 403, "Input",ExpressionUUID->"7d5c4447-be65-4eac-8268-8d4dd4bca83c"],
+Cell[342729, 5591, 5139, 120, 403, "Input",ExpressionUUID->"7d5c4447-be65-4eac-8268-8d4dd4bca83c"],
 Cell[CellGroupData[{
-Cell[347779, 5712, 7903, 213, 210, "Input",ExpressionUUID->"5c353a09-9c99-44f9-8480-91ca5b27cb7e"],
-Cell[355685, 5927, 1484603, 24235, 334, 1355188, 22112, "CachedBoxData", "BoxData", "Output",ExpressionUUID->"6d067aa2-f39c-44b1-823d-6a1847a8f975"]
+Cell[347893, 5715, 7903, 213, 210, "Input",ExpressionUUID->"5c353a09-9c99-44f9-8480-91ca5b27cb7e"],
+Cell[355799, 5930, 1484603, 24235, 334, 1355188, 22112, "CachedBoxData", "BoxData", "Output",ExpressionUUID->"6d067aa2-f39c-44b1-823d-6a1847a8f975"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[1840325, 30167, 9427, 249, 355, "Input",ExpressionUUID->"66639d46-e2d6-457c-95c6-c856b766fc69"],
-Cell[1849755, 30418, 164828, 2587, 334, "Output",ExpressionUUID->"5357a912-0ef7-44f7-80f1-0aba4155919f"]
+Cell[1840439, 30170, 9460, 249, 355, "Input",ExpressionUUID->"66639d46-e2d6-457c-95c6-c856b766fc69"],
+Cell[1849902, 30421, 164828, 2587, 334, "Output",ExpressionUUID->"5357a912-0ef7-44f7-80f1-0aba4155919f"]
 }, Open  ]]
 }
 ]

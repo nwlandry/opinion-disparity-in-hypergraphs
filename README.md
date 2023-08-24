@@ -60,7 +60,7 @@ Most of these files contain the following fields: "gamma" (healing rate), "beta2
 This directory contains every figure in the manuscript as well as the individual images combined to make each figure. Each figure is stored as a PDF and either an SVG or PNG.
 
 ## Extra
-This provides scripts that are not used in the manuscript but may prove helpful.
+This provides scripts that are not used in the manuscript but may prove helpful. Not guaranteed to run.
 
 ## requirements
 
