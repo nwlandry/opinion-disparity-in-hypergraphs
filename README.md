@@ -45,13 +45,13 @@ This folder contains all the data used to generate the figures in the article.
 
 Most of these files contain the following fields: "gamma" (healing rate), "beta2" (pairwise infection rate), "beta3" (triangle infection rate), "epsilon2" (link community imbalance), "epsilon3" (triangle community imbalance), "psi" (opinion disparity), and "nu" (the spectral abscissa, when able to be computed).
 
-* *empirical_epsilon2_epsilon3_polarization.json*: This is the data corresponding to the top left panel in Fig. 4.
-* *mean-field_epsilon2_epsilon3_polarization.json*: This is the data corresponding to the top right panel in Fig. 4.
-* *empirical_beta2_beta3_polarization.json*: This is the data corresponding to the bottom left panel in Fig. 4.
-* *mean-field_beta2_beta3_polarization.json*: This is the data corresponding to the bottom right panel in Fig. 4.
-* *mean-field_polarization_boundaries_epsilon2.json*: This is the data corresponding to Fig. 5a.
-* *mean-field_polarization_boundaries_epsilon2.json*: This is the data corresponding to Fig. 5b.
-* *mean-field_rho_epsilon2_polarization.json*: This is the data corresponding to Fig. 7.
+* *empirical_epsilon2_epsilon3_opinion_disparity.json*: This is the data corresponding to the top left panel in Fig. 4.
+* *mean-field_epsilon2_epsilon3_opinion_disparity.json*: This is the data corresponding to the top right panel in Fig. 4.
+* *empirical_beta2_beta3_opinion_disparity.json*: This is the data corresponding to the bottom left panel in Fig. 4.
+* *mean-field_beta2_beta3_opinion_disparity.json*: This is the data corresponding to the bottom right panel in Fig. 4.
+* *mean-field_opinion_disparity_boundaries_epsilon2.json*: This is the data corresponding to Fig. 5a.
+* *mean-field_opinion_disparity_boundaries_epsilon2.json*: This is the data corresponding to Fig. 5b.
+* *mean-field_rho_epsilon2_opinion_disparity.json*: This is the data corresponding to Fig. 7.
 
 ### vis
 * *vis[1, 2, 3].json* and *pos[1, 2, 3].json* are the hypergraph and nodal positions corresponding to the [top, middle, bottom] panel of Fig. 1 respectively.

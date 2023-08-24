@@ -88,5 +88,5 @@ data["fixed-points"] = fixed_points
 
 datastring = json.dumps(data)
 
-with open(f"Data/polarization/{rho}-{epsilon2}-{epsilon3}.json", "w") as output_file:
+with open(f"Data/opiniondisparity/{rho}-{epsilon2}-{epsilon3}.json", "w") as output_file:
     output_file.write(datastring)

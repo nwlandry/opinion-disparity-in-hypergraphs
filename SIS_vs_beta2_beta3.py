@@ -4,7 +4,7 @@ import os
 import numpy as np
 import xgi
 
-from src.HypergraphContagion import get_polarization_in_parallel
+from src.HypergraphContagion import get_opinion_disparity_in_parallel
 
 # Epidemic parameters
 gamma = 1
@@ -14,7 +14,7 @@ is_verbose = True
 num_processes = len(os.sched_getaffinity(0))
 num_sims = 1
 
-output_filename = "empirical_beta2_beta3_polarization.json"
+output_filename = "empirical_beta2_beta3_opinion_disparity.json"
 
 with open("Data/SBM/hypergraphs/epsilon_values.json") as file:
     data = json.loads(file.read())
@@ -65,7 +65,7 @@ for b2 in beta2:
             )
         )
 
-psi = get_polarization_in_parallel(arglist, num_processes)
+psi = get_opinion_disparity_in_parallel(arglist, num_processes)
 psi = np.reshape(psi, [n, m], order="C")
 
 data["gamma"] = gamma
@@ -77,5 +77,5 @@ data["psi"] = psi.tolist()
 
 datastring = json.dumps(data)
 
-with open(f"Data/polarization/{output_filename}", "w") as output_file:
+with open(f"Data/opiniondisparity/{output_filename}", "w") as output_file:
     output_file.write(datastring)

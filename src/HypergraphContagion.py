@@ -71,8 +71,8 @@ def get_x1_x1(
 
 def get_opinion_disparity_in_parallel(arglist, num_processes):
     with mp.Pool(processes=num_processes) as pool:
-        polarization = pool.starmap(get_opinion_disparity, arglist)
-    return polarization
+        psi = pool.starmap(get_opinion_disparity, arglist)
+    return psi
 
 
 def get_opinion_disparity(
@@ -88,7 +88,7 @@ def get_opinion_disparity(
 ):
     H = xgi.read_json(fname, nodetype=int)
 
-    polarization = 0
+    psi = 0
     for sim in range(num_sims):
         t, _, I1, _, I2 = Gillespie_SIS_two_communities(
             H,
@@ -100,7 +100,7 @@ def get_opinion_disparity(
             tmin=0,
             tmax=tmax,
         )
-        polarization += abs(
+        psi += abs(
             get_fixed_point(
                 t,
                 I1 / len(community1) - I2 / len(community2),
@@ -111,10 +111,10 @@ def get_opinion_disparity(
 
     if is_verbose:
         print(
-            polarization,
+            psi,
             flush=True,
         )
-    return polarization
+    return psi
 
 
 def get_fixed_point(time, data, time_to_average=None):

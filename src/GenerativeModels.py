@@ -89,7 +89,7 @@ def uniform_planted_partition_hypergraph(n, m, k, epsilon, rho=0.5):
     References
     ----------
     Nicholas W. Landry and Juan G. Restrepo.
-    "Polarization in hypergraphs with community structure."
+    "Opinion disparity in hypergraphs with community structure."
     Preprint, 2023. https://doi.org/10.48550/arXiv.2302.13967
     """
 
