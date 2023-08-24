@@ -1,6 +1,6 @@
 # Polarization in hypergraphs with community structure
  
-This repository accompanies the preprint ["Polarization in hypergraphs with community structure"](https://doi.org/10.48550/arXiv.2302.13967) and provides all scripts necessary to reproduce all results and figures.
+This repository accompanies the preprint ["Opinion disparity in hypergraphs with community structure"](https://doi.org/10.48550/arXiv.2302.13967) and provides all scripts necessary to reproduce all results and figures.
 
 The contents of this repository are organized by directory.
 
