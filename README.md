@@ -1,6 +1,6 @@
 # Opinion disparity in hypergraphs with community structure
  
-This repository accompanies the article ["Opinion disparity in hypergraphs with community structure"](https://doi.org/10.1103/PhysRevE.108.034311) by Nicholas Landry and Juan G. Restrepo and provides all scripts necessary to reproduce all results and figures.
+This repository accompanies the article ["Opinion disparity in hypergraphs with community structure"](https://doi.org/10.1103/PhysRevE.108.034311) by Nicholas W. Landry and Juan G. Restrepo and provides all scripts necessary to reproduce all results and figures.
 
 The contents of this repository are organized by directory.
 
